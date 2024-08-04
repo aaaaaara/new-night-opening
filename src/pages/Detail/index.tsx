@@ -1,5 +1,7 @@
+import DetailView from '../../views/Detail';
+
 function Detail() {
-  return <div>Detail</div>;
+  return <DetailView />;
 }
 
 export default Detail;

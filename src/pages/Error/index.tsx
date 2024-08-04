@@ -1,5 +1,7 @@
+import ErrorView from '../../views/Error';
+
 function ErrorPage() {
-  return <div>ErrorPage</div>;
+  return <ErrorView />;
 }
 
 export default ErrorPage;

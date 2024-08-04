@@ -1,5 +1,7 @@
+import MapArea from './components/Map/MapArea';
+
 function DetailView() {
-  return <div>DetailView</div>;
+  return <MapArea />;
 }
 
 export default DetailView;
