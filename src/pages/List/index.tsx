@@ -1,5 +1,7 @@
+import ListView from '../../views/List';
+
 function List() {
-  return <div>List</div>;
+  return <ListView />;
 }
 
 export default List;
