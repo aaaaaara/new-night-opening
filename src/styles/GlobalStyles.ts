@@ -17,7 +17,7 @@ body {
 	width:100%;
 	height:100%;
 	font-family: "Poppins", sans-serif;
-	font-size: 16px;
+	font-size: 14px;
 	font-weight:400;
 	line-height: 150%;
 	letter-spacing:-0.5px;
@@ -106,7 +106,7 @@ button,input[type="submit"], input[type="button"], input[type="reset"] {
 }
 
 	
-input,select {-webkit-appearance: none;border-radius: 0;-webkit-border-radius: 0;}
+input,select {-webkit-appearance: none;border-radius: 0;-webkit-border-radius: 0; border: none;}
 `;
 
 export default GlobalStyles;

@@ -1,5 +1,7 @@
+import * as Styles from './Label.styles';
+
 function Label() {
-  return <div>Label</div>;
+  return <Styles.Container>label</Styles.Container>;
 }
 
 export default Label;

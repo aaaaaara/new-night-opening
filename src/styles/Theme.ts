@@ -7,6 +7,8 @@ const Theme = {
   textPrimary: '#121212',
   borderLight: '#EBEBEB',
   textTertiary: '#585858',
+  white: '#fff',
+  black: '#000',
 };
 
 export default Theme;

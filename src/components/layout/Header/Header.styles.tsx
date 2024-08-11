@@ -3,7 +3,8 @@ import { styled } from 'styled-components';
 export const Container = styled.header`
   width: 100%;
   height: 70px;
-  background-color: #fff;
+  background-color: ${(props) => props.theme.primary};
+  margin-bottom: auto;
 `;
 
 export const Inner = styled.div`
@@ -13,5 +14,12 @@ export const Inner = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #f5f5f5;
+  position: relative;
+`;
+
+export const TitleWrap = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;

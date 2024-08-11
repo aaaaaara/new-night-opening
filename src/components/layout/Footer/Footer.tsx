@@ -1,5 +1,7 @@
+import * as Styles from './Footer.styles';
+
 function Footer() {
-  return <div>Footer</div>;
+  return <Styles.Container>NIGHT OPENING 2024</Styles.Container>;
 }
 
 export default Footer;

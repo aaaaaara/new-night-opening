@@ -10,11 +10,14 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  border: 1px solid #ccc; //영역 확인용
+  background-color: ${(props) => props.theme.primary};
 `;
 
-export const Content = styled.main`
+export const MainWrapper = styled.main`
   width: 100%;
-  flex: 1;
-  padding: 20px 16px;
+  //flex: 1;
+`;
+
+export const Content = styled.div`
+  //min-height: 100vh; //임시
 `;
