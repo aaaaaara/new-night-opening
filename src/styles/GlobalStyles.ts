@@ -23,6 +23,7 @@ body {
 	letter-spacing:-0.5px;
 	color: #333;
 	overflow-x: hidden;
+	background-color: #f5f5f5; //영역확인용
 }
 
 div,h1,h2,h3,h4,h5,h6,ul,ol,li,

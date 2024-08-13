@@ -8,8 +8,8 @@ function MainRoute() {
   return (
     <Routes>
       <Route path="/" element={<Main />} />
-      <Route path="/list" element={<List />} />
-      <Route path="/detail" element={<Detail />} />
+      <Route path="/hospitalType/:id" element={<List />} />
+      <Route path="/hospital/:id" element={<Detail />} />
       <Route path="/*" element={<ErrorPage />} />
     </Routes>
   );

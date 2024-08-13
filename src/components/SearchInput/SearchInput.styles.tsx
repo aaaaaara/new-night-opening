@@ -17,4 +17,6 @@ export const InputBox = styled.div`
 
 export const Input = styled.input`
   flex: 1;
+  font-size: 12px;
+  color: #c4c4c4;
 `;

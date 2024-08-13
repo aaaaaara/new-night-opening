@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 
 export const Container = styled.div`
   min-width: 360px;
-  max-width: 480px;
+  max-width: 360px;
   width: 100%;
   min-height: 100vh;
   display: flex;
@@ -15,9 +15,11 @@ export const Container = styled.div`
 
 export const MainWrapper = styled.main`
   width: 100%;
-  //flex: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Content = styled.div`
-  //min-height: 100vh; //임시
+  margin-top: auto;
 `;

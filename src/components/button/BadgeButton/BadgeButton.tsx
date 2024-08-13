@@ -3,8 +3,8 @@
 */
 import * as Styles from './BadgeButton.styles';
 interface Props {
+  onClick: () => void;
   type: string;
-  id?: string;
 }
 
 /*
@@ -14,8 +14,8 @@ hospitalType {
 }
 */
 
-function BadgeButton({ type }: Props) {
-  return <Styles.Container>{type}</Styles.Container>;
+function BadgeButton({ type, onClick }: Props) {
+  return <Styles.Container onClick={onClick}>{type}</Styles.Container>;
 }
 
 export default BadgeButton;

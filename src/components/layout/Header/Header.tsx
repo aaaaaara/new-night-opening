@@ -5,9 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import * as Styles from './Header.styles';
 
 const TEST_HEADER_TITLE = '병원타입';
-const LIST_PAGE_PATH = '/list';
-const DETAIL_PAGE_PATH = '/detail';
-const SHOW_BACKBUTTON_PAGE_PATH = ['/list', '/detail'];
+const SHOW_BACKBUTTON_PAGE_PATH = ['/hospitalType', '/hospital'];
 
 function Header() {
   const navigate = useNavigate();
@@ -20,14 +18,14 @@ function Header() {
 
   //메인페이지를 제외하고 뒤로가기 버튼 노출
   const isShowPageBackButton = () => {
-    return SHOW_BACKBUTTON_PAGE_PATH.includes(location.pathname);
+    return SHOW_BACKBUTTON_PAGE_PATH.some((page) =>
+      page.includes(location.pathname)
+    );
   };
 
   //
 
-  useEffect(() => {
-    console.log(location.pathname, 'location');
-  }, [location]);
+  useEffect(() => {}, [location]);
 
   return (
     <Styles.Container>
