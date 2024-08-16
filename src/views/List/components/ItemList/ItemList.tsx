@@ -1,31 +1,22 @@
-import { IHospitalType } from '../../../../types';
+import { IHospital } from '../../../../types';
 import ItemCard from '../ItemCard/ItemCard';
 import * as Styles from './ItemList.styles';
 
 interface Props {
-  id: string;
-  type: IHospitalType;
-  name: string;
-  x: number;
-  y: number;
-  isDuty: boolean;
-  dutyDate: {
-    day: string;
-    time: string;
-  };
-  state: '진료중' | '곧마감' | '진료마감';
+  data: IHospital[];
 }
 
-function ItemList({ id, type, name, x, y, isDuty, dutyDate, state }: Props) {
+function ItemList({ data }: Props) {
   return (
     <Styles.Container>
-      {[1, 2, 3, 4, 5].map((el) => (
+      {data.map((hospitalData) => (
         <ItemCard
-          key={el}
-          type={type.name}
-          name={name}
-          dutyTime={dutyDate.time}
-          state={state}
+          key={hospitalData.hospitalInfo.id}
+          id={hospitalData.hospitalInfo.id}
+          type={hospitalData.hospitalInfo.type.name}
+          name={hospitalData.hospitalInfo.name}
+          dutyTime={hospitalData.dutyDate.time}
+          state={hospitalData.state}
         />
       ))}
     </Styles.Container>

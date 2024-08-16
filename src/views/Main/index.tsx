@@ -1,11 +1,10 @@
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BadgeButton from '../../components/button/BadgeButton/BadgeButton';
 import BasicButton from '../../components/button/BasicButton/BasicButton';
 import SearchInput from '../../components/SearchInput/SearchInput';
 import { IHospitalType } from '../../types';
+import Tooltip from './components/Tooltip/Tooltip';
 import * as Styles from './index.styles';
 const testHsTypes = [
   { name: '이비인후과', id: '1' },
@@ -73,7 +72,7 @@ function MainView() {
         <p>{MAIN_DESCRIPTION}</p>
       </Styles.MainDescription>
       <Styles.Content>
-        <FontAwesomeIcon icon={faCircleInfo} size="lg" />
+        <Tooltip />
         <SearchInput
           searchValue={searchValue}
           setSearchValue={setSearchValue}

@@ -9,12 +9,16 @@ export interface IDutyDate {
   time: string;
 }
 
-export interface IHospital {
+export interface IBasicHospitalData {
   id: string;
   type: IHospitalType;
   name: string;
   x: number;
   y: number;
+}
+
+export interface IHospital {
+  hospitalInfo: IBasicHospitalData;
   isDuty: boolean;
   dutyDate: {
     day: string;
@@ -23,13 +27,10 @@ export interface IHospital {
   state: '진료중' | '곧마감' | '진료마감';
 }
 
+//IHospital에서 확장해서 사용해야??
 export interface IHospitalInfo {
-  id: string;
-  name: string;
-  type: IHospitalType;
+  hospitalInfo: IBasicHospitalData;
   address: string;
   tel: string;
   dutyDates: IDutyDate[];
-  x: number;
-  y: number;
 }

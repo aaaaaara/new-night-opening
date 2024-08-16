@@ -1,8 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import Label from '../../../../components/Label/Label';
 import * as Styles from './ItemCard.styles';
 
 //TODO: interface명 수정
 interface Props {
+  id: string;
   state: string;
   type: string;
   name: string;
@@ -10,9 +12,13 @@ interface Props {
 }
 
 const END_TEXT = `에 진료종료`;
-function ItemCard({ state, type, name, dutyTime }: Props) {
+function ItemCard({ state, type, name, dutyTime, id }: Props) {
+  const navigate = useNavigate();
+  const goDetailPage = () => {
+    navigate(`/hospital/${id}`);
+  };
   return (
-    <Styles.Container>
+    <Styles.Container onClick={goDetailPage}>
       <Styles.Content>
         <ul>
           <li>
