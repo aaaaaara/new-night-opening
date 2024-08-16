@@ -1,15 +1,17 @@
 import { faArrowLeft, faHouseMedical } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as Styles from './Header.styles';
 
 const TEST_HEADER_TITLE = '병원타입';
-const SHOW_BACKBUTTON_PAGE_PATH = ['/hospitalType', '/hospital'];
+const SHOW_BACKBUTTON_PAGE_PATH = ['hospitalType', 'hospital'];
 
 function Header() {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [isShowLogo, setIsShowLogo] = useState(false); //로고 노출 여부 (메인페이지만)
 
   //뒤로가기
   const goPageBack = () => {
@@ -18,25 +20,29 @@ function Header() {
 
   //메인페이지를 제외하고 뒤로가기 버튼 노출
   const isShowPageBackButton = () => {
-    return SHOW_BACKBUTTON_PAGE_PATH.some((page) =>
-      page.includes(location.pathname)
-    );
+    if (!SHOW_BACKBUTTON_PAGE_PATH.includes(location.pathname)) {
+      return setIsShowLogo(true);
+    }
+    return setIsShowLogo(false);
   };
 
   //
 
-  useEffect(() => {}, [location]);
+  useEffect(() => {
+    isShowPageBackButton();
+    console.log(isShowLogo, location);
+  }, [location]);
 
   return (
     <Styles.Container>
       <Styles.Inner>
-        {isShowPageBackButton() && (
+        {isShowLogo && (
           <button onClick={goPageBack}>
             <FontAwesomeIcon icon={faArrowLeft} size="2x" color="white" />
           </button>
         )}
         <Styles.TitleWrap>
-          {!isShowPageBackButton() ? (
+          {!isShowLogo ? (
             <FontAwesomeIcon icon={faHouseMedical} size="lg" color="white" />
           ) : (
             <p>{TEST_HEADER_TITLE}</p>

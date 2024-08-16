@@ -5,6 +5,7 @@ import * as Styles from './BadgeButton.styles';
 interface Props {
   onClick: () => void;
   type: string;
+  id: string;
 }
 
 /*

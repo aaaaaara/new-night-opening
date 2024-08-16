@@ -1,7 +1,9 @@
 import * as Styles from './Label.styles';
-
-function Label() {
-  return <Styles.Container>label</Styles.Container>;
+interface Props {
+  children: string;
+}
+function Label({ children }: Props) {
+  return <Styles.Container>{children}</Styles.Container>;
 }
 
 export default Label;

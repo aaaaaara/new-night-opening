@@ -10,7 +10,6 @@ export const Container = styled.div`
   position: relative;
 `;
 
-//임시 영역
 export const MainDescription = styled.div`
   padding: 0 20px;
 
@@ -28,8 +27,7 @@ export const MainDescription = styled.div`
 export const Content = styled.div`
   position: relative;
   min-height: 457px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  border-radius: 24px 24px 0 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
