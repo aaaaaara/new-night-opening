@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 
 export const Container = styled.div`
+  position: relative;
   min-width: 360px;
   max-width: 360px;
   width: 100%;

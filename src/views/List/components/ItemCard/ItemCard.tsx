@@ -20,17 +20,17 @@ function ItemCard({ state, type, name, dutyTime, id }: Props) {
   return (
     <Styles.Container onClick={goDetailPage}>
       <Styles.Content>
-        <ul>
-          <li>
+        <Styles.ItemContainer>
+          <Styles.Item>
             <Label children={state} />
             <Label children={type} />
-          </li>
-          <li>{name}</li>
-          <li>
+          </Styles.Item>
+          <Styles.Item>{name}</Styles.Item>
+          <Styles.Item>
             {dutyTime}
             {END_TEXT}
-          </li>
-        </ul>
+          </Styles.Item>
+        </Styles.ItemContainer>
       </Styles.Content>
     </Styles.Container>
   );

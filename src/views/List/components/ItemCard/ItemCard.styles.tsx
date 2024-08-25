@@ -15,3 +15,14 @@ export const Content = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
+
+export const ItemContainer = styled.ul``;
+
+export const Item = styled.li`
+  display: flex;
+
+  &:first-child {
+    gap: 8px;
+    margin-bottom: 5px;
+  }
+`;
