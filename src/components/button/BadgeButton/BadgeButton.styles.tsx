@@ -16,7 +16,7 @@ export const Container = styled.button`
 
   &:hover {
     background-color: ${(props) => props.theme.backgroundLight};
-    border: none;
+    border-color: ${(props) => props.theme.backgroundLight};
     color: ${(props) => props.theme.primary};
   }
 `;

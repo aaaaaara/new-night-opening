@@ -5,13 +5,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import * as Styles from './Header.styles';
 
 const TEST_HEADER_TITLE = '병원타입';
-const SHOW_BACKBUTTON_PAGE_PATH = ['hospitalType', 'hospital'];
+const SHOW_BACKBUTTON_PAGE_PATH = ['/hospitalType', '/hospital'];
 
 function Header() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [isShowLogo, setIsShowLogo] = useState(false); //로고 노출 여부 (메인페이지만)
+  const [isShowLogo, setIsShowLogo] = useState(true); //로고 노출 여부 (메인페이지만)
 
   //뒤로가기
   const goPageBack = () => {
@@ -20,29 +20,31 @@ function Header() {
 
   //메인페이지를 제외하고 뒤로가기 버튼 노출
   const isShowPageBackButton = () => {
-    if (!SHOW_BACKBUTTON_PAGE_PATH.includes(location.pathname)) {
-      return setIsShowLogo(true);
+    if (
+      SHOW_BACKBUTTON_PAGE_PATH.some((item) => location.pathname.includes(item))
+    ) {
+      setIsShowLogo(false);
+    } else {
+      setIsShowLogo(true);
     }
-    return setIsShowLogo(false);
   };
 
   //
 
   useEffect(() => {
     isShowPageBackButton();
-    console.log(isShowLogo, location);
   }, [location]);
 
   return (
     <Styles.Container>
       <Styles.Inner>
-        {isShowLogo && (
+        {!isShowLogo && (
           <button onClick={goPageBack}>
             <FontAwesomeIcon icon={faArrowLeft} size="2x" color="white" />
           </button>
         )}
         <Styles.TitleWrap>
-          {!isShowLogo ? (
+          {isShowLogo ? (
             <FontAwesomeIcon icon={faHouseMedical} size="lg" color="white" />
           ) : (
             <p>{TEST_HEADER_TITLE}</p>
