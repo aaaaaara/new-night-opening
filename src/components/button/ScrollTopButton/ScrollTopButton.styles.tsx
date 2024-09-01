@@ -1,7 +1,9 @@
 import { styled } from 'styled-components';
 
 export const Container = styled.div`
-  width: 100%;
-  min-height: 320px;
-  border-radius: 8px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
 `;
+
+export const Button = styled.button``;

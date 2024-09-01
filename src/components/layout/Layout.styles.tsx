@@ -1,8 +1,9 @@
 import { styled } from 'styled-components';
 
 export const Container = styled.div`
+  position: relative;
   min-width: 360px;
-  max-width: 480px;
+  max-width: 360px;
   width: 100%;
   min-height: 100vh;
   display: flex;
@@ -10,11 +11,16 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  border: 1px solid #ccc; //영역 확인용
+  background-color: ${(props) => props.theme.primary};
 `;
 
-export const Content = styled.main`
+export const MainWrapper = styled.main`
   width: 100%;
   flex: 1;
-  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const Content = styled.div`
+  margin-top: auto;
 `;

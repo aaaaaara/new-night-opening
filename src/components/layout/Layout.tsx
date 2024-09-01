@@ -7,9 +7,11 @@ function Layout() {
   return (
     <Styles.Container>
       <Header />
-      <Styles.Content>
-        <MainRoute />
-      </Styles.Content>
+      <Styles.MainWrapper>
+        <Styles.Content>
+          <MainRoute />
+        </Styles.Content>
+      </Styles.MainWrapper>
       <Footer />
     </Styles.Container>
   );
