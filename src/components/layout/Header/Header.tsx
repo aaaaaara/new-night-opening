@@ -29,8 +29,6 @@ function Header() {
     }
   };
 
-  //
-
   useEffect(() => {
     isShowPageBackButton();
   }, [location]);
