@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HospitalAPI from '../../apis/hospitals';
@@ -13,20 +14,17 @@ const MAIN_DESCRIPTION = `퇴근 후에 급히 병원을 가야 할 때, \n 지�
 function MainView() {
   const [searchValue, setSearchValue] = useState(''); //input value 저장 state
   const [hospitalTypes, setHospitalTypes] = useState<IHospitalType[]>([]);
-  const [filterHospitalType, setFilterHospitalType] = useState<IHospitalType[]>(
-    []
-  );
+  const [filterHospitalType, setFilterHospitalType] =
+    useState<IHospitalType[]>();
 
   const navigate = useNavigate();
 
-  const getHospitalTypeData = () => {
-    HospitalAPI.getHospotalTypes()
-      .then((res) => {
-        setHospitalTypes(res);
-        console.log(res, '성공?');
-      })
-      .catch((error) => console.log(error));
-  };
+  const getHospitalTypesQuery = useQuery({
+    queryKey: ['getHospitalTypesQuery'],
+    queryFn: HospitalAPI.getHospitalTypes,
+    //select: useCallback(data) => setHospitalTypes(data)
+    //select: (data) => setHospitalTypes(data),
+  });
 
   /**
    * 병원 타입 찾기 기능
@@ -47,12 +45,14 @@ function MainView() {
   };
 
   useEffect(() => {
-    getHospitalTypeData();
-  }, []);
+    if (getHospitalTypesQuery.data) {
+      setHospitalTypes(getHospitalTypesQuery.data);
+    }
+  }, [getHospitalTypesQuery.data]);
 
   useEffect(() => {
     hospitalTypeSearch();
-  }, [searchValue]);
+  }, [hospitalTypes, searchValue]);
   return (
     <Styles.Container>
       <Styles.MainDescription>

@@ -2,7 +2,7 @@ import { IHospitalType } from '../types';
 import { axiosInstance } from './axios';
 
 const HospitalAPI = {
-  getHospotalTypes: async (): Promise<IHospitalType[]> => {
+  getHospitalTypes: async (): Promise<IHospitalType[]> => {
     const { data } = await axiosInstance.get('hospitalTypes');
     return data;
   },
