@@ -1,3 +1,5 @@
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 import Label from '../../../../components/Label/Label';
 import * as Styles from './ItemCard.styles';
@@ -25,12 +27,17 @@ function ItemCard({ state, type, name, dutyTime, id }: Props) {
             <Label children={state} />
             <Label children={type} />
           </Styles.Item>
-          <Styles.Item>{name}</Styles.Item>
           <Styles.Item>
-            {dutyTime}
-            {END_TEXT}
+            <Styles.TypoHeadingH3>{name}</Styles.TypoHeadingH3>
+          </Styles.Item>
+          <Styles.Item>
+            <Styles.TypoBodyS>
+              {dutyTime}
+              {END_TEXT}
+            </Styles.TypoBodyS>
           </Styles.Item>
         </Styles.ItemContainer>
+        <FontAwesomeIcon icon={faAngleRight} color="#C4C4C4" />
       </Styles.Content>
     </Styles.Container>
   );
