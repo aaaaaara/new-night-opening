@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as Styles from './Header.styles';
 
-const TEST_HEADER_TITLE = '병원타입';
-const SHOW_BACKBUTTON_PAGE_PATH = ['/hospitalType', '/hospital'];
+const TEST_HEADER_TITLE = '병원찾기';
+const SHOW_BACKBUTTON_PAGE_PATH = ['/hospitalType/:id', '/hospital/:id'];
 
 function Header() {
   const navigate = useNavigate();

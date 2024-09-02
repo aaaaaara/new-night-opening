@@ -48,7 +48,8 @@ export const Content = styled.div`
 
 export const BadgeButtonWrap = styled.div`
   flex: 1;
-  padding-bottom: 30px;
+  padding-bottom: 100px;
+  max-height: 260px;
   overflow-y: auto;
 `;
 
