@@ -10,7 +10,7 @@ interface Props {
   state: string;
   type: string;
   name: string;
-  dutyTime: string;
+  dutyTime?: string;
 }
 
 const END_TEXT = `에 진료종료`;

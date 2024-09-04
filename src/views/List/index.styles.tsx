@@ -16,7 +16,7 @@ export const Content = styled.div`
   border-radius: 24px 24px 0 0;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  //overflow: hidden;
   padding: 30px 20px 30px 20px;
   background-color: ${(props) => props.theme.white};
 `;
