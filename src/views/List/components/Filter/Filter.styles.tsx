@@ -36,9 +36,9 @@ export const FilterBottom = styled.div`
 
 export const FilterActive = styled.div``;
 
-export const SearchBox = styled.div<{ $isActive?: boolean }>`
-  height: ${(props) => (props.$isActive ? 'auto' : 0)};
-  visibility: ${(props) => (props.$isActive ? 'visible' : 'hidden')};
+export const SearchBox = styled.div<{ $isSearchOpen?: boolean }>`
+  height: ${(props) => (props.$isSearchOpen ? 'auto' : 0)};
+  visibility: ${(props) => (props.$isSearchOpen ? 'visible' : 'hidden')};
 
   & > input {
     display: block;
@@ -47,6 +47,6 @@ export const SearchBox = styled.div<{ $isActive?: boolean }>`
   }
 `;
 
-export const SortBox = styled.div`
-  display: none;
+export const SortBox = styled.div<{ $isSortOpen?: boolean }>`
+  display: ${(props) => (props.$isSortOpen ? 'block' : 'none')};
 `;

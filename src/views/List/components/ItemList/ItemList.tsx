@@ -11,7 +11,7 @@ function ItemList({ data }: Props) {
       {data &&
         data.map((hospitalData) => (
           <ul key={hospitalData.hospitalInfo?.id}>
-            <li>{hospitalData.hospitalInfo?.name}dd</li>
+            <li>{hospitalData.hospitalInfo?.name}data test</li>
           </ul>
 
           // <ItemCard

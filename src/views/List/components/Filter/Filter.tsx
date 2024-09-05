@@ -9,6 +9,10 @@ import * as Styles from './Filter.styles';
 
 function Filter() {
   const [isActive, setIsActive] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isSortOpen, setIsSortOpen] = useState(false);
+
+  //인덱스로... 작업중입니다
   //검색창, 필터 보이기
   const onClickSearchIcon = () => {
     setIsActive((prev) => !prev);
@@ -16,20 +20,26 @@ function Filter() {
   //검색하기
   /*
     1. 버튼을 클릭하면 검색창영역이 활성화
-    2. 활성화 된 상태에서 검색창에 입력을 하고 버튼을 클릭하면 검색
+    
   */
+  const onClickSearchButton = () => {
+    setIsSearchOpen((prev) => !prev);
+  };
 
   //정렬
+  const onClickSortButton = () => {
+    setIsSortOpen((prev) => !prev);
+  };
 
   return (
     <Styles.Container $isActive={isActive}>
       <Styles.FilterContainer $isActive={isActive}>
         <Styles.Filter>
           <Styles.FilterTop>
-            <Styles.SearchBox $isActive={isActive}>
+            <Styles.SearchBox $isSearchOpen={isSearchOpen}>
               <input type="search" />
             </Styles.SearchBox>
-            <Styles.SortBox>
+            <Styles.SortBox $isSortOpen={isSortOpen}>
               <button>
                 <Label children="진료중" />
               </button>
@@ -42,11 +52,11 @@ function Filter() {
             </Styles.SortBox>
           </Styles.FilterTop>
           <Styles.FilterBottom>
-            <button onClick={onClickSearchIcon}>
+            <button onClick={onClickSearchButton}>
               <FontAwesomeIcon icon={faMagnifyingGlass} />
               검색하기
             </button>
-            <button>
+            <button onClick={onClickSortButton}>
               <FontAwesomeIcon icon={faArrowDownWideShort} />
               정렬
             </button>

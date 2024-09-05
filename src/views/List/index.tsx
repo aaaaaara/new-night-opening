@@ -15,10 +15,7 @@ function ListView() {
     queryKey: ['getHospitalsQuery'],
     queryFn: () => HospitalAPI.getHospitals(id ?? ''),
   });
-  //전체 병원 리스트
-  const getHospitalData = () => {
-    //
-  };
+
   useEffect(() => {
     //getHospitalsQuery.refetch();
     if (getHospitalsQuery.data && getHospitalsQuery.data !== undefined) {
