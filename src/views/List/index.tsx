@@ -66,7 +66,7 @@ function ListView() {
   return (
     <Styles.Container>
       <Styles.Content>
-        <ItemList data={hospitalData} />
+        {hospitalData && <ItemList data={hospitalData} />}
       </Styles.Content>
     </Styles.Container>
   );

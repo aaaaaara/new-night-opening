@@ -12,8 +12,12 @@ const testHospitalInfo = {
     x: 128,
     y: 128,
   },
-  dutyDates: [{ day: '월', time: '10:00 ~18:00' }],
-  address: '서울시 마포구',
+  dutyDates: [
+    { day: '월', time: '10:00 ~18:00' },
+    { day: '화', time: '10:00 ~18:00' },
+    { day: '수', time: '10:00 ~18:00' },
+  ],
+  address: '경기 남양주시 진접읍 해밀예당1로 30 센타플라자 6층 금곡리 1081-3',
   tel: '02-0000-0000',
 };
 
@@ -31,23 +35,28 @@ function DetailView() {
   return (
     <Styles.Container>
       <Styles.Content>
-        {hospitalInfoData && (
-          <BasicInfo
-            key={hospitalInfoData.hospitalInfo.type.id}
-            type={hospitalInfoData?.hospitalInfo.type}
-            name={hospitalInfoData?.hospitalInfo.name}
-            address={hospitalInfoData?.address}
-          />
-        )}
-
-        <MapArea />
-        {hospitalInfoData && (
-          <AdditionalInfo
-            key={hospitalInfoData.hospitalInfo.id}
-            tel={hospitalInfoData?.tel}
-            dutyDates={hospitalInfoData.dutyDates}
-          />
-        )}
+        <Styles.ContentItem>
+          {hospitalInfoData && (
+            <BasicInfo
+              key={hospitalInfoData.hospitalInfo.type.id}
+              type={hospitalInfoData?.hospitalInfo.type}
+              name={hospitalInfoData?.hospitalInfo.name}
+              address={hospitalInfoData?.address}
+            />
+          )}
+        </Styles.ContentItem>
+        <Styles.ContentItem>
+          <MapArea />
+        </Styles.ContentItem>
+        <Styles.ContentItem>
+          {hospitalInfoData && (
+            <AdditionalInfo
+              key={hospitalInfoData.hospitalInfo.id}
+              tel={hospitalInfoData?.tel}
+              dutyDates={hospitalInfoData.dutyDates}
+            />
+          )}
+        </Styles.ContentItem>
       </Styles.Content>
     </Styles.Container>
   );

@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 
 export const Container = styled.div`
+  display: inline-block;
   border-radius: 4px;
   padding: 3px 6px;
   background-color: ${(props) => props.theme.white};

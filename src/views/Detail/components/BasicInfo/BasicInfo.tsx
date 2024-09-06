@@ -1,3 +1,4 @@
+import Label from '../../../../components/Label/Label';
 import { IHospitalType } from '../../../../types';
 import * as Styles from './BasicInfo.styles';
 
@@ -10,9 +11,17 @@ interface Props {
 function BasicInfo({ type, name, address }: Props) {
   return (
     <Styles.Container>
-      <p>{type.name}</p>
-      <p>{name}</p>
-      <p>{address}</p>
+      <Styles.Content>
+        <Styles.ContentItem>
+          <Label children={type.name} />
+        </Styles.ContentItem>
+        <Styles.ContentItem>
+          <Styles.TypoHeadingH2>{name}</Styles.TypoHeadingH2>
+        </Styles.ContentItem>
+        <Styles.ContentItem>
+          <Styles.TypoBody>{address}</Styles.TypoBody>
+        </Styles.ContentItem>
+      </Styles.Content>
     </Styles.Container>
   );
 }
