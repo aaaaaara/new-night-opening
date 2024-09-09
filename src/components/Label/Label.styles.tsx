@@ -1,6 +1,6 @@
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.button<{ $variant: string }>`
   display: inline-block;
   border-radius: 4px;
   padding: 3px 6px;
@@ -8,7 +8,33 @@ export const Container = styled.div`
   text-align: center;
   color: ${(props) => props.theme.primary};
   font-size: 10px;
-  border: 1px solid ${(props) => props.theme.primary};
+  border: 1px solid
+    ${(props) => (props.$variant ? 'transparent' : props.theme.primary)};
+
+  ${({ $variant }) => {
+    switch ($variant) {
+      case 'disabled':
+        return css`
+          color: #c4c4c4;
+          background-color: ${(props) => props.theme.backgroundLight};
+        `;
+      case 'active':
+        return css`
+          color: ${(props) => props.theme.primary};
+          background-color: ${(props) => props.theme.backgroundLight};
+        `;
+      case 'urgent':
+        return css`
+          color: ${(props) => props.theme.white};
+          background-color: ${(props) => props.theme.accentGold};
+        `;
+      case 'closed':
+        return css`
+          color: ${(props) => props.theme.white};
+          background-color: ${(props) => props.theme.accentTeal};
+        `;
+    }
+  }}
 `;
 
 /*
@@ -29,7 +55,7 @@ export const Container = styled.div`
   color white
   background-color: accentTeal
 
-  6. disabled
+  5. disabled
   color: #c4c4c4
   background-color: backgroundLight
 

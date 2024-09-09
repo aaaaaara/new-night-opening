@@ -13,7 +13,7 @@ function BasicInfo({ type, name, address }: Props) {
     <Styles.Container>
       <Styles.Content>
         <Styles.ContentItem>
-          <Label children={type.name} />
+          <Label children={type.name} variant="urgent" />
         </Styles.ContentItem>
         <Styles.ContentItem>
           <Styles.TypoHeadingH2>{name}</Styles.TypoHeadingH2>
