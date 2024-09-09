@@ -17,13 +17,3 @@ export const ContentItem = styled.li`
     margin-bottom: 2px;
   }
 `;
-
-export const TypoHeadingH2 = styled.h2`
-  font-size: 20px;
-  font-weight: 700;
-`;
-
-export const TypoBody = styled.p`
-  font-size: 14px;
-  color: #999;
-`;

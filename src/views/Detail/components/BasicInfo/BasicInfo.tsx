@@ -1,4 +1,5 @@
 import Label from '../../../../components/Label/Label';
+import Typography from '../../../../components/Typography/Typography';
 import { IHospitalType } from '../../../../types';
 import * as Styles from './BasicInfo.styles';
 
@@ -16,10 +17,10 @@ function BasicInfo({ type, name, address }: Props) {
           <Label children={type.name} variant="urgent" />
         </Styles.ContentItem>
         <Styles.ContentItem>
-          <Styles.TypoHeadingH2>{name}</Styles.TypoHeadingH2>
+          <Typography variant="heading2" children={name} />
         </Styles.ContentItem>
         <Styles.ContentItem>
-          <Styles.TypoBody>{address}</Styles.TypoBody>
+          <Typography color="#999" children={address} />
         </Styles.ContentItem>
       </Styles.Content>
     </Styles.Container>

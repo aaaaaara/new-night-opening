@@ -1,3 +1,4 @@
+import Typography from '../../../../components/Typography/Typography';
 import { IDutyDate } from '../../../../types';
 import * as Styles from './AdditionalInfo.styles';
 
@@ -11,22 +12,18 @@ function AdditionalInfo({ tel, dutyDates }: Props) {
     <Styles.Container>
       <Styles.Content>
         <Styles.ContentItem>
-          <Styles.TypoBodyS $color="#999">{'전화번호'}</Styles.TypoBodyS>
+          <Typography variant="body-s" color="#999" children="전화번호" />
         </Styles.ContentItem>
         <Styles.ContentItem>
-          <Styles.TypoBodyS>{'02-0000-0000'}</Styles.TypoBodyS>
+          <Typography variant="body-s" children="02-0000-0000" />
         </Styles.ContentItem>
       </Styles.Content>
       <Styles.Content>
         <Styles.ContentItem>
-          <Styles.TypoBodyS $color="#999">{'진료시간'}</Styles.TypoBodyS>
+          <Typography variant="body-s" color="#999" children="진료시간" />
         </Styles.ContentItem>
         <Styles.ContentItem>
-          <Styles.TypoBodyS>
-            {' '}
-            {'18:00'}
-            {'에 진료종료'}
-          </Styles.TypoBodyS>
+          <Typography variant="body-s" children={'18:00에 진료종료'} />
         </Styles.ContentItem>
       </Styles.Content>
 
@@ -34,10 +31,10 @@ function AdditionalInfo({ tel, dutyDates }: Props) {
         dutyDates.map((date) => (
           <Styles.Content key={date.day}>
             <Styles.ContentItem>
-              <Styles.TypoBodyS $color="#999">{date.day}</Styles.TypoBodyS>
+              <Typography variant="body-s" color="#999" children={date.day} />
             </Styles.ContentItem>
             <Styles.ContentItem>
-              <Styles.TypoBodyS>{date.time}</Styles.TypoBodyS>
+              <Typography variant="body-s" children={date.time} />
             </Styles.ContentItem>
           </Styles.Content>
         ))}

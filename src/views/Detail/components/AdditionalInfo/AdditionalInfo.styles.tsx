@@ -24,8 +24,3 @@ export const ContentItem = styled.li`
     text-align: right;
   }
 `;
-
-export const TypoBodyS = styled.p<{ $color?: string }>`
-  font-size: 12px;
-  color: ${(props) => props.$color || '#121212'};
-`;
