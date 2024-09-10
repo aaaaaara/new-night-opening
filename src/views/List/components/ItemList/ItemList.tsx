@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { IHospital } from '../../../../types';
 import * as Styles from './ItemList.styles';
 
@@ -6,6 +7,9 @@ interface Props {
 }
 
 function ItemList({ data }: Props) {
+  useEffect(() => {
+    data;
+  });
   return (
     <Styles.Container>
       {data &&

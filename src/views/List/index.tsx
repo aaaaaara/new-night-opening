@@ -11,26 +11,30 @@ function ListView() {
   const [hospitalData, setHospitalData] = useState<IHospital[]>([]);
 
   //api
-  const getHospitalsQuery = useQuery({
+  const {
+    data: getHospitalsQuery,
+    isSuccess,
+    isLoading,
+  } = useQuery({
     queryKey: ['getHospitalsQuery'],
-    queryFn: () => HospitalAPI.getHospitals(id ?? ''),
+    queryFn: () => HospitalAPI.getHospitals(id as string),
   });
 
   useEffect(() => {
-    //getHospitalsQuery.refetch();
-    if (getHospitalsQuery.data && getHospitalsQuery.data !== undefined) {
-      setHospitalData(getHospitalsQuery.data);
-    }
-  }, [id, getHospitalsQuery.data]);
+    console.log(id);
+  }, [id]);
 
   useEffect(() => {
-    console.log(hospitalData);
+    console.log(getHospitalsQuery);
+    if (isSuccess) {
+      setHospitalData(getHospitalsQuery);
+    }
   }, [hospitalData]);
 
   return (
     <Styles.Container>
       <Styles.Content>
-        {hospitalData && <ItemList data={hospitalData} />}
+        {isLoading ? 'loading' : <ItemList data={hospitalData} />}
       </Styles.Content>
     </Styles.Container>
   );
