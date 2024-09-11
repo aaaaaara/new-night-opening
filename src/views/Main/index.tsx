@@ -22,8 +22,6 @@ function MainView() {
   const getHospitalTypesQuery = useQuery({
     queryKey: ['getHospitalTypesQuery'],
     queryFn: HospitalAPI.getHospitalTypes,
-    //select: useCallback(data) => setHospitalTypes(data)
-    //select: (data) => setHospitalTypes(data),
   });
 
   /**
@@ -33,22 +31,22 @@ function MainView() {
    */
 
   //필터 검색에 대한 기능 라우팅
-  const hospitalTypeSearch = () => {
-    const hospitalType = hospitalTypes.filter((type) =>
-      type.name.includes(searchValue)
-    );
-    setFilterHospitalType(hospitalType);
-  };
+  // const hospitalTypeSearch = () => {
+  //   const hospitalType = hospitalTypes.filter((type) =>
+  //     type.name.includes(searchValue)
+  //   );
+  //   setFilterHospitalType(hospitalType);
+  // };
 
-  const goToListPage = (id: string) => {
-    navigate(`/hospitalType/${id}`);
-  };
+  // const goToListPage = (id: string) => {
+  //   navigate(`/hospitalType/${id}`);
+  // };
 
-  useEffect(() => {
-    if (getHospitalTypesQuery.data) {
-      setHospitalTypes(getHospitalTypesQuery.data);
-    }
-  }, [getHospitalTypesQuery.data]);
+  // useEffect(() => {
+  //   if (getHospitalTypesQuery.data) {
+  //     setHospitalTypes(getHospitalTypesQuery.data);
+  //   }
+  // }, [getHospitalTypesQuery.data]);
 
   useEffect(() => {
     hospitalTypeSearch();
