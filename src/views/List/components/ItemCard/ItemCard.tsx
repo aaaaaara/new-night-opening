@@ -7,7 +7,7 @@ import * as Styles from './ItemCard.styles';
 //TODO: interface명 수정
 interface Props {
   id: string;
-  state: string;
+  state?: string;
   type: string;
   name: string;
   dutyTime?: string;
@@ -24,7 +24,7 @@ function ItemCard({ state, type, name, dutyTime, id }: Props) {
       <Styles.Content>
         <Styles.ItemContainer>
           <Styles.Item>
-            <Label children={state} />
+            {state && <Label children={state} />}
             <Label children={type} />
           </Styles.Item>
           <Styles.Item>

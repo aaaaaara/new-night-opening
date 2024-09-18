@@ -34,3 +34,18 @@ export interface IHospitalInfo {
   tel: string;
   dutyDates: IDutyDate[];
 }
+
+//
+export interface IHospitals {
+  id: string;
+  type: {
+    id: string;
+    name: string;
+  };
+  name: string;
+  x: number;
+  y: number;
+  isDuty: boolean;
+  dutyDate: [{ day: string; time: string | null }];
+  state?: string;
+}

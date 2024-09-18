@@ -1,4 +1,4 @@
-import { IHospital, IHospitalType } from '../types';
+import { IHospital, IHospitals, IHospitalType } from '../types';
 import { axiosInstance } from './axios';
 
 const HospitalAPI = {
@@ -6,7 +6,7 @@ const HospitalAPI = {
     const { data } = await axiosInstance.get('hospitalTypes');
     return data;
   },
-  getHospitals: async (id: string): Promise<IHospital[]> => {
+  getHospitals: async (id: string): Promise<IHospitals[]> => {
     const { data } = await axiosInstance.get(`hospitals?hospitalType=${id}`);
     return data.hospitals;
   },

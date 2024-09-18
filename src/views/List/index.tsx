@@ -1,40 +1,32 @@
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import HospitalAPI from '../../apis/hospitals';
-import { IHospital } from '../../types';
 import ItemList from './components/ItemList/ItemList';
 import * as Styles from './index.styles';
 
 function ListView() {
-  const { id } = useParams();
-  const [hospitalData, setHospitalData] = useState<IHospital[]>([]);
+  const [searchParams] = useSearchParams();
+  const hospitalType = searchParams.get('hospitalType');
 
   //api
-  const {
-    data: getHospitalsQuery,
-    isSuccess,
-    isLoading,
-  } = useQuery({
+
+  const getHospitalsQuery = useQuery({
     queryKey: ['getHospitalsQuery'],
-    queryFn: () => HospitalAPI.getHospitals(id as string),
+    queryFn: () => HospitalAPI.getHospitals(hospitalType as string),
+    enabled: !!hospitalType,
   });
 
-  useEffect(() => {
-    console.log(id);
-  }, [id]);
-
-  useEffect(() => {
-    console.log(getHospitalsQuery);
-    if (isSuccess) {
-      setHospitalData(getHospitalsQuery);
-    }
-  }, [hospitalData]);
+  useEffect(() => {}, [hospitalType, getHospitalsQuery.data]);
 
   return (
     <Styles.Container>
       <Styles.Content>
-        {isLoading ? 'loading' : <ItemList data={hospitalData} />}
+        {getHospitalsQuery.isSuccess ? (
+          <ItemList data={getHospitalsQuery.data} />
+        ) : (
+          <p>로딩중</p>
+        )}
       </Styles.Content>
     </Styles.Container>
   );

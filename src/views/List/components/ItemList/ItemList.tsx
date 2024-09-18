@@ -1,32 +1,28 @@
-import { useEffect } from 'react';
-import { IHospital } from '../../../../types';
+import { Suspense } from 'react';
+import { IHospitals } from '../../../../types';
+import ItemCard from '../ItemCard/ItemCard';
 import * as Styles from './ItemList.styles';
 
 interface Props {
-  data: IHospital[];
+  data: IHospitals[];
 }
 
 function ItemList({ data }: Props) {
-  useEffect(() => {
-    data;
-  });
   return (
-    <Styles.Container>
-      {data &&
-        data.map((hospitalData) => (
-          <ul key={hospitalData.hospitalInfo?.id}>
-            <li>{hospitalData.hospitalInfo?.name}data test</li>
-          </ul>
-
-          // <ItemCard
-          //   key={hospitalData.hospitalInfo?.id}
-          //   id={hospitalData.hospitalInfo?.id}
-          //   type={hospitalData.hospitalInfo?.type.name}
-          //   name={hospitalData.hospitalInfo?.name}
-          //   state={hospitalData.state}
-          // />
-        ))}
-    </Styles.Container>
+    <Suspense fallback={'loading'}>
+      <Styles.Container>
+        {data &&
+          data.map((hospitalData) => (
+            <ItemCard
+              key={hospitalData.id}
+              id={hospitalData.id}
+              type={hospitalData.type.name}
+              name={hospitalData.name}
+              state={hospitalData?.state}
+            />
+          ))}
+      </Styles.Container>
+    </Suspense>
   );
 }
 
