@@ -18,7 +18,9 @@ function ListView() {
         enabled: !!hospitalType,
     });
 
-    useEffect(() => {}, [hospitalType, getHospitalsQuery.data]);
+    useEffect(() => {
+        console.log(getHospitalsQuery.data);
+    }, [hospitalType, getHospitalsQuery.data]);
 
     return (
         <Styles.Container>
