@@ -11,26 +11,30 @@ import * as Styles from './index.styles';
 
 const BUTTON_TEXT = '병원 찾기';
 const MAIN_DESCRIPTION = `퇴근 후에 급히 병원을 가야 할 때, \n 지금 진료중인 병원을 찾고싶다.(설명)`;
+
+/**
+ * 병원 타입 찾기 기능
+ * 1. input에 병원 타입을 입력.
+ * 2. 병원타입 데이터에서 입력한 값이 포함된 병원타입을 필터링
+ */
+
 function MainView() {
-  const [searchValue, setSearchValue] = useState(''); //input value 저장 state
+  // State
+  const [searchValue, setSearchValue] = useState<string>(''); //input value 저장 state
   const [hospitalTypes, setHospitalTypes] = useState<IHospitalType[]>([]);
   const [filterHospitalType, setFilterHospitalType] =
     useState<IHospitalType[]>();
 
+  // Hooks
   const navigate = useNavigate();
 
+  // API
   const getHospitalTypesQuery = useQuery({
     queryKey: ['getHospitalTypesQuery'],
     queryFn: HospitalAPI.getHospitalTypes,
   });
 
-  /**
-   * 병원 타입 찾기 기능
-   * 1. input에 병원 타입을 입력.
-   * 2. 병원타입 데이터에서 입력한 값이 포함된 병원타입을 필터링
-   */
-
-  //필터 검색에 대한 기능 라우팅
+  //Logic
   const hospitalTypeSearch = () => {
     const hospitalType = hospitalTypes.filter((type) =>
       type.name.includes(searchValue)
@@ -42,6 +46,11 @@ function MainView() {
     navigate(`/hospitals?hospitalType=${id}`);
   };
 
+  const goToAllListPage = () => {
+    navigate(`/hospitals`);
+  };
+
+  // Effect
   useEffect(() => {
     if (getHospitalTypesQuery.data) {
       setHospitalTypes(getHospitalTypesQuery.data);
@@ -78,10 +87,7 @@ function MainView() {
           </Styles.BadgeButtonInner>
         </Styles.BadgeButtonWrap>
         <Styles.ButtonWrap>
-          <BasicButton
-            children={BUTTON_TEXT}
-            onClick={() => goToListPage('all')}
-          />
+          <BasicButton children={BUTTON_TEXT} onClick={goToAllListPage} />
         </Styles.ButtonWrap>
       </Styles.Content>
     </Styles.Container>

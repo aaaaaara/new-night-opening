@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { IHospitalInfo } from '../../types';
 import AdditionalInfo from './components/AdditionalInfo/AdditionalInfo';
 import BasicInfo from './components/BasicInfo/BasicInfo';
+import MapArea from './components/Map/MapArea';
 import * as Styles from './index.styles';
 const testHospitalInfo = {
   hospitalInfo: {
@@ -44,7 +45,9 @@ function DetailView() {
             />
           )}
         </Styles.ContentItem>
-        <Styles.ContentItem>{/* <MapArea /> */}</Styles.ContentItem>
+        <Styles.ContentItem>
+          <MapArea />
+        </Styles.ContentItem>
         <Styles.ContentItem>
           {hospitalInfoData && (
             <AdditionalInfo

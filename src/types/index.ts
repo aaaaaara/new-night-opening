@@ -6,7 +6,7 @@ export interface IHospitalType {
 
 export interface IDutyDate {
   day: string;
-  time: string;
+  time: string | null;
 }
 
 export interface IBasicHospitalData {
