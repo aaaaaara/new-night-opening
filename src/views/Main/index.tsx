@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HospitalAPI from '../../apis/hospitals';
 import BadgeButton from '../../components/button/BadgeButton/BadgeButton';
-import BasicButton from '../../components/button/BasicButton/BasicButton';
 import SearchInput from '../../components/SearchInput/SearchInput';
 import { IHospitalType } from '../../types';
 import Tooltip from './components/Tooltip/Tooltip';
 import * as Styles from './index.styles';
 
 const BUTTON_TEXT = '병원 찾기';
+const MAIN_TITLE = '병원 찾기(임시)';
 const MAIN_DESCRIPTION = `퇴근 후에 급히 병원을 가야 할 때, \n 지금 진료중인 병원을 찾고싶다.(설명)`;
 
 /**
@@ -46,10 +46,6 @@ function MainView() {
     navigate(`/hospitals?hospitalType=${id}`);
   };
 
-  const goToAllListPage = () => {
-    navigate(`/hospitals`);
-  };
-
   // Effect
   useEffect(() => {
     if (getHospitalTypesQuery.data) {
@@ -63,7 +59,7 @@ function MainView() {
   return (
     <Styles.Container>
       <Styles.MainDescription>
-        <h2>병원 찾기(임시)</h2>
+        <h2>{MAIN_TITLE}</h2>
         <p>{MAIN_DESCRIPTION}</p>
       </Styles.MainDescription>
       <Styles.Content>
@@ -86,9 +82,6 @@ function MainView() {
               ))}
           </Styles.BadgeButtonInner>
         </Styles.BadgeButtonWrap>
-        <Styles.ButtonWrap>
-          <BasicButton children={BUTTON_TEXT} onClick={goToAllListPage} />
-        </Styles.ButtonWrap>
       </Styles.Content>
     </Styles.Container>
   );
