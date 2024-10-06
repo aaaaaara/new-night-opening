@@ -13,10 +13,9 @@ function Filter() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
 
-  //검색하기
   /*
     1. 버튼을 클릭하면 검색창영역이 활성화
-    
+    2. 검색 or 정렬버튼 클릭시 이전 (검색 or 정렬)값 초기화
   */
   const onClickSearchButton = () => {
     setIsActive(true);

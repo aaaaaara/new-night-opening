@@ -1,39 +1,40 @@
-import { css, styled } from "styled-components";
+import { css, styled } from 'styled-components';
 
-export const Container = styled.button<{ $variant: string }>`
-    display: inline-block;
-    border-radius: 4px;
-    padding: 3px 6px;
-    background-color: ${(props) => props.theme.white};
-    text-align: center;
-    color: ${(props) => props.theme.primary};
-    font-size: 10px;
-    border: 1px solid ${(props) => (props.$variant ? "transparent" : props.theme.primary)};
+export const Container = styled.button<{ $variant?: string }>`
+  display: inline-block;
+  border-radius: 4px;
+  padding: 3px 6px;
+  background-color: ${(props) => props.theme.white};
+  text-align: center;
+  color: ${(props) => props.theme.primary};
+  font-size: 10px;
+  border: 1px solid
+    ${(props) => (props.$variant ? 'transparent' : props.theme.primary)};
 
-    ${({ $variant }) => {
-        switch ($variant) {
-            case "disabled":
-                return css`
-                    color: #c4c4c4;
-                    background-color: ${(props) => props.theme.backgroundLight};
-                `;
-            case "active":
-                return css`
-                    color: ${(props) => props.theme.white};
-                    background-color: ${(props) => props.theme.primary};
-                `;
-            case "urgent":
-                return css`
-                    color: ${(props) => props.theme.white};
-                    background-color: ${(props) => props.theme.accentGold};
-                `;
-            case "closed":
-                return css`
-                    color: ${(props) => props.theme.white};
-                    background-color: ${(props) => props.theme.accentTeal};
-                `;
-        }
-    }}
+  ${({ $variant }) => {
+    switch ($variant) {
+      case 'disabled':
+        return css`
+          color: #c4c4c4;
+          background-color: ${(props) => props.theme.backgroundLight};
+        `;
+      case 'active':
+        return css`
+          color: ${(props) => props.theme.white};
+          background-color: ${(props) => props.theme.primary};
+        `;
+      case 'urgent':
+        return css`
+          color: ${(props) => props.theme.white};
+          background-color: ${(props) => props.theme.accentGold};
+        `;
+      case 'closed':
+        return css`
+          color: ${(props) => props.theme.white};
+          background-color: ${(props) => props.theme.accentTeal};
+        `;
+    }
+  }}
 `;
 
 /*

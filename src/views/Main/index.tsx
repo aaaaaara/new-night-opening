@@ -1,14 +1,13 @@
+import HospitalAPI from '@apis/hospitals';
+import BadgeButton from '@components/button/BadgeButton/BadgeButton';
+import SearchInput from '@components/SearchInput/SearchInput';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import HospitalAPI from '../../apis/hospitals';
-import BadgeButton from '../../components/button/BadgeButton/BadgeButton';
-import SearchInput from '../../components/SearchInput/SearchInput';
 import { IHospitalType } from '../../types';
 import Tooltip from './components/Tooltip/Tooltip';
 import * as Styles from './index.styles';
 
-const BUTTON_TEXT = '병원 찾기';
 const MAIN_TITLE = '병원 찾기(임시)';
 const MAIN_DESCRIPTION = `퇴근 후에 급히 병원을 가야 할 때, \n 지금 진료중인 병원을 찾고싶다.(설명)`;
 
@@ -33,6 +32,7 @@ function MainView() {
     queryKey: ['getHospitalTypesQuery'],
     queryFn: HospitalAPI.getHospitalTypes,
   });
+  /* 추후 삭제: 쿼리키 => 리액트쿼리에서 캐싱을 하는데 쿼리키로 변동된 데이터가 없을 경우 api호출을 하지 않음으로 불필요한 api호출 및 리랜더를 방지할 수 있다 */
 
   //Logic
   const hospitalTypeSearch = () => {
@@ -52,6 +52,7 @@ function MainView() {
       setHospitalTypes(getHospitalTypesQuery.data);
     }
   }, [getHospitalTypesQuery.data]);
+  /* 추후 삭제: 변동 없는 Data의 경우는 front에서 상수로 관리하는 편이 낫다 무의미한 api호출을 하지 않아도 됨 */
 
   useEffect(() => {
     hospitalTypeSearch();

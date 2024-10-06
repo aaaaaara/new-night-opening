@@ -2,6 +2,7 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import * as Styles from './Tooltip.styles';
+
 function Tooltip() {
   const [isShow, setIsShow] = useState(false);
 

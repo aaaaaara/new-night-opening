@@ -22,13 +22,18 @@ const testHospitalInfo = {
 };
 
 function DetailView() {
+  //State
   const [hospitalInfoData, setHospitalInfo] = useState<IHospitalInfo>();
 
+  //API
+
+  //Logic
   //병원 상세 정보 가져오기
   const getHospitalInfoData = () => {
     setHospitalInfo(testHospitalInfo);
   };
 
+  //Effect
   useEffect(() => {
     getHospitalInfoData();
   }, []);

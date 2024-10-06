@@ -1,6 +1,6 @@
 import { css, styled } from 'styled-components';
 
-export const Container = styled.p<{ $variant: string; $color: string }>`
+export const Container = styled.p<{ $variant?: string; $color?: string }>`
   color: ${(props) => (props.$color ? props.$color : props.theme.textPrimary)};
   font-size: 14px;
   font-style: normal;

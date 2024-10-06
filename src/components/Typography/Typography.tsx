@@ -1,5 +1,6 @@
 import * as Styles from './Typography.styles';
 
+//child 변경
 interface Props {
   children: string;
   variant?: string;
