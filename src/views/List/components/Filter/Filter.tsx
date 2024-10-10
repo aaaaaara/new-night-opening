@@ -4,11 +4,17 @@ import {
   faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Label from '../../../../components/Label/Label';
 import * as Styles from './Filter.styles';
 
-function Filter() {
+interface Props {
+  onClick: () => void;
+  value: string;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function Filter({ onClick, value, setValue }: Props) {
   const [isActive, setIsActive] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
@@ -52,7 +58,13 @@ function Filter() {
           <Styles.FilterTop>
             {isSearchOpen && (
               <Styles.SearchBox $isSearchOpen={isSearchOpen}>
-                <input type="search" placeholder="무엇을 찾고 싶으세요?" />
+                <input
+                  type="search"
+                  placeholder="무엇을 찾고 싶으세요?"
+                  value={value}
+                  onChange={(e) => setValue(e.target.value)}
+                  onKeyDown={onClick}
+                />
               </Styles.SearchBox>
             )}
 
