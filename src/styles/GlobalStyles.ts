@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
 
@@ -16,7 +16,7 @@ html {
 body {
 	width:100%;
 	height:100%;
-	font-family: "Poppins", sans-serif;
+	font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 	font-size: 14px;
 	font-weight:400;
 	line-height: 150%;
@@ -29,7 +29,7 @@ body {
 div,h1,h2,h3,h4,h5,h6,ul,ol,li,
 dl,dt,dd,p,form,fieldset,input,label,
 table,tr,th,td,button,textarea,select,a {
-	font-family: "Poppins", sans-serif;
+	font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 	font-size: 16px;
 	font-weight:400;
 	line-height: 150%;

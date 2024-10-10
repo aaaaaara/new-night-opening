@@ -1,6 +1,6 @@
 import { css, styled } from 'styled-components';
 
-export const Container = styled.button<{ $variant: string }>`
+export const Container = styled.button<{ $variant?: string }>`
   display: inline-block;
   border-radius: 4px;
   padding: 3px 6px;
@@ -20,8 +20,8 @@ export const Container = styled.button<{ $variant: string }>`
         `;
       case 'active':
         return css`
-          color: ${(props) => props.theme.primary};
-          background-color: ${(props) => props.theme.backgroundLight};
+          color: ${(props) => props.theme.white};
+          background-color: ${(props) => props.theme.primary};
         `;
       case 'urgent':
         return css`

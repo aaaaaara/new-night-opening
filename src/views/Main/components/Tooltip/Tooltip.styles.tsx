@@ -7,12 +7,6 @@ export const Container = styled.div`
   position: relative;
   z-index: 3;
   margin-bottom: 24px;
-
-  //typo로 분리
-  & > p {
-    font-weight: 700;
-    letter-spacing: -1.12px;
-  }
 `;
 
 export const Content = styled.div`
@@ -27,8 +21,4 @@ export const Content = styled.div`
   border-radius: 6px;
   background: rgba(40, 41, 48, 0.75);
   backdrop-filter: blur(10px);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 400;
-  letter-spacing: -0.13px;
 `;

@@ -1,72 +1,65 @@
+import { IHospitals } from '@/src/types';
+import Loading from '@components/Loading/Loading';
+import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { IHospital } from '../../types';
+import { useSearchParams } from 'react-router-dom';
+import HospitalAPI from '../../apis/hospitals';
+import Filter from './components/Filter/Filter';
 import ItemList from './components/ItemList/ItemList';
 import * as Styles from './index.styles';
 
-const testHsListItem: IHospital[] = [
-  {
-    hospitalInfo: {
-      id: 'h001',
-      type: { name: '이비인후과', id: '1' },
-      name: '이룸이비인후과의원',
-      x: 128,
-      y: 128,
-    },
-    isDuty: true,
-    dutyDate: {
-      day: '월',
-      time: '18:00',
-    },
-    state: '진료중',
-  },
-  {
-    hospitalInfo: {
-      id: 'h002',
-      type: { name: '이비인후과', id: '1' },
-      name: '이룸의원',
-      x: 128,
-      y: 128,
-    },
-    isDuty: false,
-    dutyDate: {
-      day: '월',
-      time: '19:00',
-    },
-    state: '진료마감',
-  },
-  {
-    hospitalInfo: {
-      id: 'h003',
-      type: { name: '이비인후과', id: '1' },
-      name: '과자이비인후과',
-      x: 128,
-      y: 128,
-    },
-    isDuty: true,
-    dutyDate: {
-      day: '월',
-      time: '18:30',
-    },
-    state: '진료중',
-  },
-];
-function ListView() {
-  const { id } = useParams();
-  const [hospitalData, setHospitalData] = useState<IHospital[]>([]);
+/*
+ *TODO : 이전값을 물고 있어서 로딩바 추가
+ */
 
-  //전체 병원 리스트
-  const getHospitalData = () => {
-    setHospitalData(testHsListItem);
+function ListView() {
+  //state
+  const [searchParams] = useSearchParams();
+  const hospitalType = searchParams.get('hospitalType');
+  const [hospitals, setHospitals] = useState<IHospitals[] | undefined>([]);
+  const [searchValue, setSearchValue] = useState<string>('');
+  //let userLocation = navigator.geolocation.getCurrentPosition();
+
+  //API
+
+  //Logic
+  const getHospitalsQuery = useQuery({
+    queryKey: ['getHospitalsQuery'],
+    queryFn: () => HospitalAPI.getHospitals(hospitalType as string),
+    enabled: !!hospitalType,
+  });
+
+  //검색
+  const searchHospital = () => {
+    const hospitalData =
+      getHospitalsQuery.data &&
+      getHospitalsQuery.data.filter((data) => data.name.includes(searchValue));
+    setHospitals(hospitalData);
   };
+
+  // 필터 로직
+  const seletedState = () => {
+    //
+  };
+
+  //Effect
   useEffect(() => {
-    getHospitalData();
-    console.log(hospitalData);
-  }, [id]);
+    searchHospital();
+  }, [searchValue, getHospitalsQuery.data]);
+
   return (
     <Styles.Container>
       <Styles.Content>
-        {hospitalData && <ItemList data={hospitalData} />}
+        <Filter
+          setValue={setSearchValue}
+          onClick={searchHospital}
+          value={searchValue}
+        />
+        {getHospitalsQuery.isFetching ? (
+          <Loading />
+        ) : (
+          hospitals && <ItemList data={hospitals} />
+        )}
       </Styles.Content>
     </Styles.Container>
   );

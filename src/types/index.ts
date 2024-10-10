@@ -6,7 +6,7 @@ export interface IHospitalType {
 
 export interface IDutyDate {
   day: string;
-  time: string;
+  time: string | null;
 }
 
 export interface IBasicHospitalData {
@@ -33,4 +33,19 @@ export interface IHospitalInfo {
   address: string;
   tel: string;
   dutyDates: IDutyDate[];
+}
+
+//
+export interface IHospitals {
+  id: string;
+  type: {
+    id: string;
+    name: string;
+  };
+  name: string;
+  x: number;
+  y: number;
+  isDuty: boolean;
+  dutyDate: [{ day: string; time: string | null }];
+  state?: string;
 }
