@@ -10,6 +10,10 @@ const HospitalAPI = {
     const { data } = await axiosInstance.get(`hospitals?hospitalType=${id}`);
     return data.hospitals;
   },
+  getHospitalDetail: async (id: string): Promise<IHospitals> => {
+    const { data } = await axiosInstance.get(`hospitals/detail/${id}`);
+    return data;
+  },
 };
 
 export default HospitalAPI;

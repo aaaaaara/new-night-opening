@@ -23,7 +23,6 @@ export const Content = styled.div`
 
 export const ContentItem = styled.div`
   margin-bottom: 20px;
-  padding: 0 20px;
 
   &:nth-child(2) {
     padding-bottom: 20px;
