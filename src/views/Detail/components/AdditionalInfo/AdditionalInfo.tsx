@@ -28,7 +28,7 @@ function AdditionalInfo({ tel, dutyDates }: Props) {
           </Typography>
         </Styles.ContentItem>
         <Styles.ContentItem>
-          <Typography variant="body-s" children={'18:00에 진료종료'} />
+          <Typography variant="body-s">{'18:00에 진료종료'}</Typography>
         </Styles.ContentItem>
       </Styles.Content>
 

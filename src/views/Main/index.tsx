@@ -24,6 +24,11 @@ function MainView() {
   const [filterHospitalType, setFilterHospitalType] =
     useState<IHospitalType[]>();
 
+  const [userLocation, setUserLocation] = useState<{
+    latitude: number; //위도
+    longitude: number; //경도
+  } | null>(null); //위치정보
+
   // Hooks
   const navigate = useNavigate();
 
@@ -46,6 +51,22 @@ function MainView() {
     navigate(`/hospitals?hospitalType=${id}`);
   };
 
+  const getUserLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setUserLocation({ latitude, longitude });
+        },
+        (error) => {
+          console.log('Error get user Location:', error);
+        }
+      );
+    } else {
+      console.log('Geolocation is not supported by this browser');
+    }
+  };
+
   // Effect
   useEffect(() => {
     if (getHospitalTypesQuery.data) {
@@ -57,6 +78,10 @@ function MainView() {
   useEffect(() => {
     hospitalTypeSearch();
   }, [hospitalTypes, searchValue]);
+
+  useEffect(() => {
+    getUserLocation();
+  }, []);
   return (
     <Styles.Container>
       <Styles.MainDescription>

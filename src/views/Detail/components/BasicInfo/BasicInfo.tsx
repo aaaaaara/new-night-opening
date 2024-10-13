@@ -16,10 +16,10 @@ function BasicInfo({ type, name, address }: Props) {
           <Label children={type} variant="urgent" />
         </Styles.ContentItem>
         <Styles.ContentItem>
-          <Typography variant="heading2" children={name} />
+          <Typography variant="heading2">{name}</Typography>
         </Styles.ContentItem>
         <Styles.ContentItem>
-          <Typography color="#999" children={address} />
+          <Typography color="#999">{address}</Typography>
         </Styles.ContentItem>
       </Styles.Content>
     </Styles.Container>
