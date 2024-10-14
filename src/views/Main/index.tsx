@@ -54,10 +54,12 @@ function MainView() {
   const getUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
+        //success
         (position) => {
           const { latitude, longitude } = position.coords;
           setUserLocation({ latitude, longitude });
         },
+        //error
         (error) => {
           console.log('Error get user Location:', error);
         }

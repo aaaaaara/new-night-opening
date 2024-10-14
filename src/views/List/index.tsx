@@ -36,9 +36,12 @@ function ListView() {
   // };
 
   // 필터 로직
-  const seletedState = () => {
-    //
-  };
+  // const seletedState = () => {
+  //   const hospitalData =
+  //   getHospitalsQuery.data &&
+  // getHospitalsQuery.data.filter((data) => data.state === hospitalStatus);
+  // setHospitals(hospitalData)
+  // };
 
   //Effect
   // useEffect(() => {

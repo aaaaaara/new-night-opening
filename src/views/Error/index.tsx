@@ -1,5 +1,5 @@
-import Theme from '@/src/styles/Theme';
 import Typography from '@components/Typography/Typography';
+import Theme from '@styles/Theme';
 import * as Styles from './index.styles';
 
 const ERROR_MESSAGE = {

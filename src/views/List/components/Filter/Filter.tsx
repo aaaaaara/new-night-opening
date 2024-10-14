@@ -1,3 +1,4 @@
+import Label from '@components/Label/Label';
 import {
   faArrowDownWideShort,
   faMagnifyingGlass,
@@ -5,7 +6,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { PropsWithChildren, useState } from 'react';
-import Label from '../../../../components/Label/Label';
 import * as Styles from './Filter.styles';
 
 const labelData = ['진료중', '곧마감', '마감'];
@@ -20,6 +20,7 @@ function Filter() {
   const [isActive, setIsActive] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
+  const [seletedLabel, setSeletedLabel] = useState(0);
 
   /*
     1. 버튼을 클릭하면 검색창영역이 활성화
@@ -44,8 +45,8 @@ function Filter() {
   };
 
   //상태에 따라 라벨 활성화
-  const SelectedFilter = () => {
-    //
+  const SelectedFilter = (idx: number) => {
+    setSeletedLabel(idx);
   };
 
   return (
@@ -76,8 +77,12 @@ function Filter() {
 
             {isSortOpen && (
               <Styles.SortBox>
-                {labelData.map((label, i) => (
-                  <Label key={i} onClick={SelectedFilter} variant="active">
+                {labelData.map((label, idx) => (
+                  <Label
+                    key={idx}
+                    onClick={() => SelectedFilter(idx)}
+                    variant={seletedLabel === idx ? 'active' : 'disabled'}
+                  >
                     {label}
                   </Label>
                 ))}

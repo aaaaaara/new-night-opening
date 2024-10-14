@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react';
 import * as Styles from './Label.styles';
 interface Props extends PropsWithChildren {
   variant?: string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 function Label({ children, variant, onClick }: Props) {
   return (
