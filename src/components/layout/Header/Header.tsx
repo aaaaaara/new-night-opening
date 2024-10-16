@@ -1,15 +1,18 @@
+import Typography from '@components/Typography/Typography';
 import { faArrowLeft, faHouseMedical } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useHeaderTitleStore } from '@stores/headerTitle';
+import Theme from '@styles/Theme';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as Styles from './Header.styles';
 
-const TEST_HEADER_TITLE = '병원찾기';
 const SHOW_BACKBUTTON_PAGE_PATH = ['/hospitalType', '/hospital'];
 
 function Header() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { headerTitle } = useHeaderTitleStore();
 
   const [isShowLogo, setIsShowLogo] = useState(true); //로고 노출 여부 (메인페이지만)
 
@@ -45,7 +48,7 @@ function Header() {
           {isShowLogo ? (
             <FontAwesomeIcon icon={faHouseMedical} size="lg" color="white" />
           ) : (
-            <p>{TEST_HEADER_TITLE}</p>
+            <Typography color={Theme.white}>{headerTitle}</Typography>
           )}
         </Styles.TitleWrap>
       </Styles.Inner>

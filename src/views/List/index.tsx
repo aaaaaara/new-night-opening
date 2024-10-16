@@ -1,6 +1,7 @@
 import { IHospitals } from '@/src/types';
+import { useHeaderTitleStore } from '@stores/headerTitle';
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import HospitalAPI from '../../apis/hospitals';
 import Filter from './components/Filter/Filter';
@@ -17,7 +18,7 @@ function ListView() {
   const [hospitals, setHospitals] = useState<IHospitals[] | undefined>([]);
   const [searchValue, setSearchValue] = useState<string>('');
   const [hospitalStatus, setHospitalStatus] = useState(); //병원 운영상태 state
-
+  const { setTitle } = useHeaderTitleStore();
   //API
 
   //Logic
@@ -26,6 +27,10 @@ function ListView() {
     queryFn: () => HospitalAPI.getHospitals(hospitalType as string),
     enabled: !!hospitalType,
   });
+
+  const setHederTitle = () => {
+    setTitle('리스트');
+  };
 
   //검색
   // const searchHospital = () => {
@@ -47,6 +52,10 @@ function ListView() {
   // useEffect(() => {
   //   searchHospital();
   // }, [searchValue, getHospitalsQuery.data]);
+
+  useEffect(() => {
+    setHederTitle();
+  }, []);
 
   return (
     <Styles.Container>

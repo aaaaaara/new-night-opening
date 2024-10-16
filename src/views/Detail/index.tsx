@@ -1,3 +1,4 @@
+import { useHeaderTitleStore } from '@/src/stores/headerTitle';
 import { IHospitals } from '@/src/types';
 import HospitalAPI from '@apis/hospitals';
 import { useQuery } from '@tanstack/react-query';
@@ -36,6 +37,7 @@ function DetailView() {
     IHospitals | undefined
   >();
 
+  const { setTitle } = useHeaderTitleStore();
   //API
 
   //Logic
@@ -47,13 +49,11 @@ function DetailView() {
   });
 
   //Effect
+
   useEffect(() => {
-    console.log(id, 'id');
-  }, []);
-  useEffect(() => {
-    console.log(getHospitalDetailQuery.data);
     if (getHospitalDetailQuery.isSuccess) {
       setHospitalDetail(getHospitalDetailQuery.data);
+      setTitle(getHospitalDetailQuery.data.name);
     }
   }, [getHospitalDetailQuery.data]);
   return (
