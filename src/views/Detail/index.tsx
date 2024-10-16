@@ -4,13 +4,33 @@ import AdditionalInfo from './components/AdditionalInfo/AdditionalInfo';
 import BasicInfo from './components/BasicInfo/BasicInfo';
 import MapArea from './components/Map/MapArea';
 import * as Styles from './index.styles';
+/*
+  {
+  "id": "string",
+  "type": {
+    "id": "string",
+    "name": "string"
+  },
+  "name": "string",
+  "x": 0,
+  "y": 0,
+  "address": "string",
+  "isDuty": true,
+  "dutyDate": [
+    {
+      "day": "string",
+      "time": null
+    }
+  ]
+}
+*/
 const testHospitalInfo = {
   hospitalInfo: {
     id: 'h001',
-    type: { name: '이비인후과', id: '1' },
+    type: { id: 'D001', name: '이비인후과' },
     name: '이룸이비인후과의원',
-    x: 128,
-    y: 128,
+    x: 37.563617,
+    y: 126.851353,
   },
   dutyDates: [
     { day: '월', time: '10:00 ~18:00' },
