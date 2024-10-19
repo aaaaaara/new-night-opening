@@ -1,4 +1,5 @@
 import { IHospitals } from '@/src/types';
+import ScrollTopButton from '@components/button/ScrollTopButton/ScrollTopButton';
 import { useHeaderTitleStore } from '@stores/headerTitle';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
@@ -71,6 +72,7 @@ function ListView() {
           hospitals && <ItemList data={hospitals} />
         )} */}
       </Styles.Content>
+      <ScrollTopButton />
     </Styles.Container>
   );
 }
