@@ -1,3 +1,9 @@
+/**
+ * TODO 타입정리
+ */
+
+import { IDutyDateType } from '../const';
+
 //type
 export interface IHospitalType {
   id: string;
@@ -5,37 +11,10 @@ export interface IHospitalType {
 }
 
 export interface IDutyDate {
-  day: string;
+  day: IDutyDateType;
   time: string | null;
 }
 
-export interface IBasicHospitalData {
-  id: string;
-  type: IHospitalType;
-  name: string;
-  x: number;
-  y: number;
-}
-
-export interface IHospital {
-  hospitalInfo: IBasicHospitalData;
-  isDuty: boolean;
-  dutyDate: {
-    day: string;
-    time: string;
-  };
-  state: '진료중' | '곧마감' | '진료마감';
-}
-
-//IHospital에서 확장해서 사용해야??
-export interface IHospitalInfo {
-  hospitalInfo: IBasicHospitalData;
-  address: string;
-  tel: string;
-  dutyDates: IDutyDate[];
-}
-
-//
 export interface IHospitals {
   id: string;
   type: {
@@ -46,6 +25,8 @@ export interface IHospitals {
   x: number;
   y: number;
   isDuty: boolean;
-  dutyDate: [{ day: string; time: string | null }];
+  dutyDate: [{ day: IDutyDateType; time: string | null }];
   state?: string;
+  address: string;
+  tel: string;
 }

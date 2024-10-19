@@ -11,16 +11,20 @@ export const Container = styled.div`
   box-shadow: 0px 8px 24px 6px rgba(0, 0, 0, 0.04);
 `;
 
-export const Content = styled.ul`
+export const Content = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 14px;
   gap: 27px;
 `;
 
-export const ContentItem = styled.li`
+export const ContentItem = styled.div`
   &:first-child {
     flex-basis: 40px;
     text-align: right;
   }
+`;
+
+export const DutyDateItem = styled.div`
+  height: 24px;
 `;
