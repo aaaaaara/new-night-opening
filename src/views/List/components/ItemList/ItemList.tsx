@@ -3,9 +3,10 @@ import ItemCard from '../ItemCard/ItemCard';
 import * as Styles from './ItemList.styles';
 interface Props {
   data: IHospitals[];
+  targetRef: React.ForwardedRef<HTMLDivElement>;
 }
 
-function ItemList({ data }: Props) {
+function ItemList({ data, targetRef }: Props) {
   return (
     <Styles.Container>
       {data &&
@@ -19,6 +20,7 @@ function ItemList({ data }: Props) {
             dutyDates={hospitalData.dutyDate}
           />
         ))}
+      <div ref={targetRef}></div>
     </Styles.Container>
   );
 }

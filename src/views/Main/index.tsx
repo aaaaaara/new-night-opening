@@ -47,8 +47,10 @@ function MainView() {
     setFilterHospitalType(hospitalType);
   };
 
-  const goToListPage = (id: string) => {
-    navigate(`/hospitals?hospitalType=${id}`);
+  const goToListPage = (id: string, page: number, pageSize: number) => {
+    navigate(
+      `/hospitals?hospitalType=${id}&pageNo=${page}&numOfRows=${pageSize}`
+    );
   };
 
   const getUserLocation = () => {
@@ -105,7 +107,7 @@ function MainView() {
                   type={type.name}
                   id={type.id}
                   key={type.id}
-                  onClick={() => goToListPage(type.id)}
+                  onClick={() => goToListPage(type.id, 1, 20)}
                 />
               ))}
           </Styles.BadgeButtonInner>

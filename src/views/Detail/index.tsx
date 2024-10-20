@@ -1,6 +1,6 @@
-import { useHeaderTitleStore } from '@/src/stores/headerTitle';
 import { IHospitals } from '@/src/types';
 import HospitalAPI from '@apis/hospitals';
+import { useHeaderTitleStore } from '@stores/headerTitle';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -8,26 +8,6 @@ import AdditionalInfo from './components/AdditionalInfo/AdditionalInfo';
 import BasicInfo from './components/BasicInfo/BasicInfo';
 import MapArea from './components/Map/MapArea';
 import * as Styles from './index.styles';
-/*
-  {
-  "id": "string",
-  "type": {
-    "id": "string",
-    "name": "string"
-  },
-  "name": "string",
-  "x": 0,
-  "y": 0,
-  "address": "string",
-  "isDuty": true,
-  "dutyDate": [
-    {
-      "day": "string",
-      "time": null
-    }
-  ]
-}
-*/
 
 function DetailView() {
   //State

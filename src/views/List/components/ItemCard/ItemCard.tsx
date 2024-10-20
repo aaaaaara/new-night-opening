@@ -41,7 +41,7 @@ function ItemCard({ state, type, name, dutyDates, id }: Props) {
   const isDutyCheck = (time: string) => {
     let endTime = time.slice(5);
 
-    console.log(endTime, 'end');
+    //console.log(endTime, 'end');
   };
 
   const goDetailPage = () => {

@@ -16,7 +16,7 @@ interface Props extends PropsWithChildren {
   setValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Filter() {
+function Filter({ onClick, value, setValue }: Props) {
   const [isActive, setIsActive] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
@@ -68,9 +68,9 @@ function Filter() {
                 <input
                   type="search"
                   placeholder="무엇을 찾고 싶으세요?"
-                  // value={value}
-                  // onChange={(e) => setValue(e.target.value)}
-                  // onKeyDown={onClick}
+                  value={value}
+                  onChange={(e) => setValue(e.target.value)}
+                  onKeyDown={onClick}
                 />
               </Styles.SearchBox>
             )}

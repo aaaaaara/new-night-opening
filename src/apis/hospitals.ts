@@ -6,9 +6,13 @@ const HospitalAPI = {
     const { data } = await axiosInstance.get('hospitalTypes');
     return data;
   },
-  getHospitals: async (id: string): Promise<IHospitals[]> => {
+  getHospitals: async (
+    id: string,
+    page: number,
+    pageSize: number
+  ): Promise<IHospitals[]> => {
     const { data } = await axiosInstance.get(
-      `hospitals/list?hospitalType=${id}`
+      `hospitals/list?hospitalType=${id}&pageNo=${page}&numOfRows=${pageSize}`
     );
     return data.hospitals;
   },
