@@ -5,10 +5,11 @@ import * as Styles from './AdditionalInfo.styles';
 
 interface Props {
   tel: string;
+  endTime: string;
   dutyDates: IDutyDate[];
 }
 
-function AdditionalInfo({ tel, dutyDates }: Props) {
+function AdditionalInfo({ tel, endTime, dutyDates }: Props) {
   return (
     <Styles.Container>
       <Styles.Content>
@@ -28,7 +29,10 @@ function AdditionalInfo({ tel, dutyDates }: Props) {
           </Typography>
         </Styles.ContentItem>
         <Styles.ContentItem>
-          <Typography variant="body-s">{'18:00에 진료종료'}</Typography>
+          <Typography variant="body-s">
+            {endTime}
+            {'에 진료종료'}
+          </Typography>
         </Styles.ContentItem>
       </Styles.Content>
 

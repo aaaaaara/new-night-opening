@@ -5,18 +5,18 @@ import * as Styles from './MapArea.styles';
 const { kakao }: any = window;
 
 interface Props {
-  Lat: number;
-  Lng: number;
+  lat: number;
+  lng: number;
 }
 
-function MapArea({ Lat, Lng }: Props) {
+function MapArea({ lat, lng }: Props) {
   const [kakaoMap, setKakaoMap] = useState(null);
   const container = useRef(null);
 
   const initMap = () => {
     const options = {
       //지도를 생성할 때 필요한 기본 옵션
-      center: new kakao.maps.LatLng(Lat, Lng), //지도의 중심좌표.
+      center: new kakao.maps.LatLng(lat, lng), //지도의 중심좌표.
       level: 3, //지도의 레벨(확대, 축소 정도)
     };
     const map = new kakao.maps.Map(container.current, options);
@@ -25,7 +25,7 @@ function MapArea({ Lat, Lng }: Props) {
 
   useEffect(() => {
     initMap();
-  }, []);
+  }, [lat, lng]);
 
   return <Styles.Container ref={container}>지도영역</Styles.Container>;
 }

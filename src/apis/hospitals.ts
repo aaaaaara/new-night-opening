@@ -7,17 +7,19 @@ const HospitalAPI = {
     return data;
   },
   getHospitals: async (
+    lng: string,
+    lat: string,
     id: string,
     page: number,
     pageSize: number
   ): Promise<IHospitals[]> => {
     const { data } = await axiosInstance.get(
-      `hospitals/list?hospitalType=${id}&pageNo=${page}&numOfRows=${pageSize}`
+      `hospitals?longitude=${lng}&latitude=${lat}&hospitalType=${id}&pageNo=${page}&numOfRows=${pageSize}`
     );
     return data.hospitals;
   },
   getHospitalDetail: async (id: string): Promise<IHospitals> => {
-    const { data } = await axiosInstance.get(`hospitals/detail/${id}`);
+    const { data } = await axiosInstance.get(`hospitals/${id}`);
     return data;
   },
 };

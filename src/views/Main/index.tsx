@@ -1,6 +1,7 @@
 import HospitalAPI from '@apis/hospitals';
 import BadgeButton from '@components/button/BadgeButton/BadgeButton';
 import SearchInput from '@components/SearchInput/SearchInput';
+import { useHospitalTypeStore } from '@stores/hospitalType';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -19,15 +20,16 @@ const MAIN_DESCRIPTION = `퇴근 후에 급히 병원을 가야 할 때, \n 지�
 
 function MainView() {
   // State
+  const { setType } = useHospitalTypeStore();
   const [searchValue, setSearchValue] = useState<string>(''); //input value 저장 state
   const [hospitalTypes, setHospitalTypes] = useState<IHospitalType[]>([]);
   const [filterHospitalType, setFilterHospitalType] =
     useState<IHospitalType[]>();
 
   const [userLocation, setUserLocation] = useState<{
-    latitude: number; //위도
-    longitude: number; //경도
-  } | null>(null); //위치정보
+    latitudeStr: string; //위도 y
+    longitudeStr: string; //경도 x
+  }>({ latitudeStr: '', longitudeStr: '' }); //위치정보
 
   // Hooks
   const navigate = useNavigate();
@@ -36,6 +38,7 @@ function MainView() {
   const getHospitalTypesQuery = useQuery({
     queryKey: ['getHospitalTypesQuery'],
     queryFn: HospitalAPI.getHospitalTypes,
+    refetchOnWindowFocus: false,
   });
   /* 추후 삭제: 쿼리키 => 리액트쿼리에서 캐싱을 하는데 쿼리키로 변동된 데이터가 없을 경우 api호출을 하지 않음으로 불필요한 api호출 및 리랜더를 방지할 수 있다 */
 
@@ -47,19 +50,38 @@ function MainView() {
     setFilterHospitalType(hospitalType);
   };
 
-  const goToListPage = (id: string, page: number, pageSize: number) => {
+  /**
+   * 1. 타입 버튼 클릭
+   * 2. 타입과 일치하는 값을 state에 저장
+   * 3. 타입과 일치하는 값을 params로 넘기기
+   */
+  const onClickTypeButton = (type: IHospitalType) => {
+    setType(type.name);
+  };
+
+  const goToListPage = (
+    lng: string,
+    lat: string,
+    id: string,
+    page: number,
+    pageSize: number
+  ) => {
     navigate(
-      `/hospitals?hospitalType=${id}&pageNo=${page}&numOfRows=${pageSize}`
+      `hospitals?longitude=${lng}&latitude=${lat}&hospitalType=${id}&pageNo=${page}&numOfRows=${pageSize}`
     );
   };
 
+  //유저 위치 가져오기
   const getUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         //success
         (position) => {
           const { latitude, longitude } = position.coords;
-          setUserLocation({ latitude, longitude });
+          const latitudeStr = latitude.toString();
+          const longitudeStr = longitude.toString();
+          console.log(latitude, longitude);
+          setUserLocation({ latitudeStr, longitudeStr });
         },
         //error
         (error) => {
@@ -67,6 +89,7 @@ function MainView() {
         }
       );
     } else {
+      //브라우저 지원 하지 않음
       console.log('Geolocation is not supported by this browser');
     }
   };
@@ -85,6 +108,7 @@ function MainView() {
 
   useEffect(() => {
     getUserLocation();
+    console.log(userLocation);
   }, []);
   return (
     <Styles.Container>
@@ -107,7 +131,16 @@ function MainView() {
                   type={type.name}
                   id={type.id}
                   key={type.id}
-                  onClick={() => goToListPage(type.id, 1, 20)}
+                  onClick={() => {
+                    onClickTypeButton(type),
+                      goToListPage(
+                        userLocation.latitudeStr,
+                        userLocation.longitudeStr,
+                        type.id,
+                        1,
+                        20
+                      );
+                  }}
                 />
               ))}
           </Styles.BadgeButtonInner>

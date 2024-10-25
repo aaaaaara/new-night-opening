@@ -3,10 +3,11 @@ import HospitalAPI from '@apis/hospitals';
 import ScrollTopButton from '@components/button/ScrollTopButton/ScrollTopButton';
 import Loading from '@components/Loading/Loading';
 import { useHeaderTitleStore } from '@stores/headerTitle';
+import { useHospitalTypeStore } from '@stores/hospitalType';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import Filter from './components/Filter/Filter';
+import FilterBox from './components/Filter/FilterBox';
 import ItemList from './components/ItemList/ItemList';
 import * as Styles from './index.styles';
 
@@ -17,33 +18,35 @@ import * as Styles from './index.styles';
 
 function ListView() {
   //state
+  const { hospitalTypeName } = useHospitalTypeStore();
+  const { setTitle } = useHeaderTitleStore();
   const [searchParams] = useSearchParams();
   const hospitalType = searchParams.get('hospitalType');
-  const { setTitle } = useHeaderTitleStore();
+  const longitude = searchParams.get('longitude'); //
+  const latitude = searchParams.get('latitude'); //
   const [hospitals, setHospitals] = useState<IHospitals[] | undefined>([]);
   const [searchValue, setSearchValue] = useState<string>('');
   const [hospitalStatus, setHospitalStatus] = useState(); //병원 운영상태 state
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(20);
-  const [hasMore, setHasMore] = useState<boolean>(true);
-  const targetEl = useRef<HTMLDivElement>(null);
-  //API
 
-  //Logic
+  const targetEl = useRef<HTMLDivElement>(null); //스크롤 하단에 도달했는지 확인용 div TODO 네이밍 변경
+  //API
   const getHospitalsQuery = useQuery({
     queryKey: ['getHospitalsQuery'],
     queryFn: () =>
-      HospitalAPI.getHospitals(hospitalType as string, page, pageSize),
+      HospitalAPI.getHospitals(
+        longitude as string,
+        latitude as string,
+        hospitalType as string,
+        page,
+        pageSize
+      ),
     enabled: !!hospitalType,
+    refetchOnWindowFocus: false,
   });
 
-  //헤더 타이틀
-  const setHederTitle = () => {
-    getHospitalsQuery.data &&
-      getHospitalsQuery.data.map((data) => {
-        setTitle(data.type.name);
-      });
-  };
+  //Logic
 
   //검색
   const searchHospital = () => {
@@ -69,25 +72,36 @@ function ListView() {
     2. 데이터 리패칭 (page num를 넘겨준다)
     3. 데이터 리랜더
   */
+  const handleObserver = () => {
+    const observer = new IntersectionObserver(() => {
+      //
+    });
+  };
 
   //Effect
   useEffect(() => {
     searchHospital();
-    setHederTitle();
-  }, [hospitalType, searchValue, getHospitalsQuery.data]);
+    setTitle(hospitalTypeName);
+  }, [hospitalType, searchValue, getHospitalsQuery.data, hospitalTypeName]);
 
   return (
     <Styles.Container>
       <Styles.Content>
-        <Filter
+        <FilterBox
           setValue={setSearchValue}
-          onClick={searchHospital}
+          onClickSearch={searchHospital}
           value={searchValue}
         />
         {getHospitalsQuery.isFetching ? (
           <Loading />
         ) : (
-          hospitals && <ItemList data={hospitals} targetRef={targetEl} />
+          hospitals && (
+            <ItemList
+              data={hospitals}
+              type={hospitalTypeName}
+              targetRef={targetEl}
+            />
+          )
         )}
       </Styles.Content>
       <ScrollTopButton />

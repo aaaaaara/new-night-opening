@@ -6,26 +6,28 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { PropsWithChildren, useState } from 'react';
-import * as Styles from './Filter.styles';
+import * as Styles from './FilterBox.styles';
 
 const labelData = ['진료중', '곧마감', '마감'];
 
 interface Props extends PropsWithChildren {
-  onClick: () => void;
+  onClickSearch: () => void;
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Filter({ onClick, value, setValue }: Props) {
-  const [isActive, setIsActive] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isSortOpen, setIsSortOpen] = useState(false);
-  const [seletedLabel, setSeletedLabel] = useState(0);
+function FilterBox({ onClickSearch, value, setValue }: Props) {
+  const [isActive, setIsActive] = useState(false); //container를 활성/비활성화 하는 style에 대한 state
+  const [isSearchOpen, setIsSearchOpen] = useState(false); //검색 노출여부 state
+  const [isSortOpen, setIsSortOpen] = useState(false); //sorting 노출여부 state
+  const [seletedLabel, setSeletedLabel] = useState(0); //선택한 라벨 state
 
   /*
     1. 버튼을 클릭하면 검색창영역이 활성화
     2. 검색 or 정렬버튼 클릭시 이전 (검색 or 정렬)값 초기화
   */
+
+  // UI에 관한 함수
   const onClickSearchButton = () => {
     setIsActive(true);
     setIsSearchOpen(true);
@@ -42,6 +44,15 @@ function Filter({ onClick, value, setValue }: Props) {
     setIsActive(false);
     setIsSortOpen(false);
     setIsSearchOpen(false);
+    setValue('');
+  };
+
+  //
+  const goSearch = (e: any) => {
+    if (e.key === 'Enter') {
+      onClickSearch();
+      onCloseFilter();
+    }
   };
 
   //상태에 따라 라벨 활성화
@@ -70,7 +81,7 @@ function Filter({ onClick, value, setValue }: Props) {
                   placeholder="무엇을 찾고 싶으세요?"
                   value={value}
                   onChange={(e) => setValue(e.target.value)}
-                  onKeyDown={onClick}
+                  onKeyDown={(e) => goSearch(e)}
                 />
               </Styles.SearchBox>
             )}
@@ -105,4 +116,4 @@ function Filter({ onClick, value, setValue }: Props) {
   );
 }
 
-export default Filter;
+export default FilterBox;

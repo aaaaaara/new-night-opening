@@ -1,4 +1,5 @@
 import { IHospitals } from '@/src/types';
+import { useHospitalTypeStore } from '@/stores/hospitalType';
 import HospitalAPI from '@apis/hospitals';
 import { useHeaderTitleStore } from '@stores/headerTitle';
 import { useQuery } from '@tanstack/react-query';
@@ -12,6 +13,7 @@ import * as Styles from './index.styles';
 function DetailView() {
   //State
   const { id } = useParams();
+  const { hospitalTypeName } = useHospitalTypeStore();
 
   const [hospitalDetail, setHospitalDetail] = useState<
     IHospitals | undefined
@@ -26,16 +28,19 @@ function DetailView() {
     queryKey: ['getHospitalDetailQuery'],
     queryFn: () => HospitalAPI.getHospitalDetail(id as string),
     enabled: !!id,
+    refetchOnWindowFocus: false,
   });
 
   //Effect
 
   useEffect(() => {
+    getHospitalDetailQuery.refetch();
     if (getHospitalDetailQuery.isSuccess) {
       setHospitalDetail(getHospitalDetailQuery.data);
       setTitle(getHospitalDetailQuery.data.name);
     }
   }, [getHospitalDetailQuery.data]);
+
   return (
     <Styles.Container>
       <Styles.Content>
@@ -43,15 +48,15 @@ function DetailView() {
           {hospitalDetail && (
             <BasicInfo
               key={hospitalDetail.id}
-              type={hospitalDetail.type.name}
+              type={hospitalTypeName}
               name={hospitalDetail.name}
-              address={hospitalDetail?.address}
+              address={hospitalDetail.address}
             />
           )}
         </Styles.ContentItem>
         <Styles.ContentItem>
           {hospitalDetail && (
-            <MapArea Lat={hospitalDetail?.y} Lng={hospitalDetail?.x} />
+            <MapArea lat={hospitalDetail.y} lng={hospitalDetail.x} />
           )}
         </Styles.ContentItem>
         <Styles.ContentItem>
@@ -59,6 +64,7 @@ function DetailView() {
             <AdditionalInfo
               key={hospitalDetail.id}
               tel={hospitalDetail.tel}
+              endTime={hospitalDetail.endTime}
               dutyDates={hospitalDetail.dutyDate}
             />
           )}
