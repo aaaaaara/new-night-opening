@@ -1,5 +1,13 @@
 //const
 
+export const stateTypes = {
+  IN_PROGRESS: '진료중',
+  CLOSING_SOON: '곧마감',
+  CLOSED: '진료마감',
+} as const;
+
+export type StateTypes = typeof stateTypes;
+
 export const dayTypes = {
   SUN: '일요일',
   MON: '월요일',

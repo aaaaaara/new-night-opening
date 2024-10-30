@@ -8,15 +8,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { PropsWithChildren, useState } from 'react';
 import * as Styles from './FilterBox.styles';
 
-const labelData = ['진료중', '곧마감', '마감'];
+const labelData = ['진료중', '곧마감', '진료마감'];
 
 interface Props extends PropsWithChildren {
   onClickSearch: () => void;
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
+  onClickLabel: () => void;
+  setLabel: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function FilterBox({ onClickSearch, value, setValue }: Props) {
+function FilterBox({
+  onClickSearch,
+  value,
+  setValue,
+  onClickLabel,
+  setLabel,
+}: Props) {
   const [isActive, setIsActive] = useState(false); //container를 활성/비활성화 하는 style에 대한 state
   const [isSearchOpen, setIsSearchOpen] = useState(false); //검색 노출여부 state
   const [isSortOpen, setIsSortOpen] = useState(false); //sorting 노출여부 state
@@ -47,7 +55,7 @@ function FilterBox({ onClickSearch, value, setValue }: Props) {
     setValue('');
   };
 
-  //
+  //검색
   const goSearch = (e: any) => {
     if (e.key === 'Enter') {
       onClickSearch();
@@ -55,9 +63,11 @@ function FilterBox({ onClickSearch, value, setValue }: Props) {
     }
   };
 
-  //상태에 따라 라벨 활성화
-  const SelectedFilter = (idx: number) => {
-    setSeletedLabel(idx);
+  //상태 라벨 버튼
+  const SelectedFilter = (idx: number, label: string) => {
+    setLabel(label); //상태 선택 state
+    onClickLabel(); //데이터 필터링 로직 함수
+    setSeletedLabel(idx); //UI 변경 state
   };
 
   return (
@@ -91,7 +101,7 @@ function FilterBox({ onClickSearch, value, setValue }: Props) {
                 {labelData.map((label, idx) => (
                   <Label
                     key={idx}
-                    onClick={() => SelectedFilter(idx)}
+                    onClick={() => SelectedFilter(idx, label)}
                     variant={seletedLabel === idx ? 'active' : 'disabled'}
                   >
                     {label}

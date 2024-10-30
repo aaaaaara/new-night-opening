@@ -1,7 +1,7 @@
 import { IHospitals } from '@/src/types';
-import { useHospitalTypeStore } from '@/stores/hospitalType';
 import HospitalAPI from '@apis/hospitals';
 import { useHeaderTitleStore } from '@stores/headerTitle';
+import { useHospitalTypeStore } from '@stores/hospitalType';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';

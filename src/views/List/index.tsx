@@ -26,7 +26,7 @@ function ListView() {
   const latitude = searchParams.get('latitude'); //
   const [hospitals, setHospitals] = useState<IHospitals[] | undefined>([]);
   const [searchValue, setSearchValue] = useState<string>('');
-  const [hospitalStatus, setHospitalStatus] = useState(); //병원 운영상태 state
+  const [hospitalStatus, setHospitalStatus] = useState<string>(''); //병원 운영상태 state
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(20);
 
@@ -58,6 +58,7 @@ function ListView() {
 
   // 필터 로직 테스트 필요 !!
   const seletedState = () => {
+    console.log(hospitalStatus, 'test');
     const hospitalData =
       getHospitalsQuery.data &&
       getHospitalsQuery.data.filter((data) => data.state === hospitalStatus);
@@ -76,6 +77,7 @@ function ListView() {
     const observer = new IntersectionObserver(() => {
       //
     });
+    //observer.observe(targetEl)
   };
 
   //Effect
@@ -84,6 +86,10 @@ function ListView() {
     setTitle(hospitalTypeName);
   }, [hospitalType, searchValue, getHospitalsQuery.data, hospitalTypeName]);
 
+  useEffect(() => {
+    seletedState();
+  }, [hospitalStatus]);
+
   return (
     <Styles.Container>
       <Styles.Content>
@@ -91,6 +97,8 @@ function ListView() {
           setValue={setSearchValue}
           onClickSearch={searchHospital}
           value={searchValue}
+          onClickLabel={() => seletedState()}
+          setLabel={setHospitalStatus}
         />
         {getHospitalsQuery.isFetching ? (
           <Loading />

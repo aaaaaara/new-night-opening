@@ -80,7 +80,6 @@ function MainView() {
           const { latitude, longitude } = position.coords;
           const latitudeStr = latitude.toString();
           const longitudeStr = longitude.toString();
-          console.log(latitude, longitude);
           setUserLocation({ latitudeStr, longitudeStr });
         },
         //error
@@ -92,6 +91,7 @@ function MainView() {
       //브라우저 지원 하지 않음
       console.log('Geolocation is not supported by this browser');
     }
+    console.log(navigator.geolocation);
   };
 
   // Effect
@@ -108,7 +108,6 @@ function MainView() {
 
   useEffect(() => {
     getUserLocation();
-    console.log(userLocation);
   }, []);
   return (
     <Styles.Container>
