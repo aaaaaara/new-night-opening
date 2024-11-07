@@ -19,10 +19,16 @@ const MAIN_DESCRIPTION = `퇴근 후에 급히 병원을 가야 할 때, \n 지�
 
 function MainView() {
   // State
+
   const [searchValue, setSearchValue] = useState<string>(''); //input value 저장 state
   const [hospitalTypes, setHospitalTypes] = useState<IHospitalType[]>([]);
   const [filterHospitalType, setFilterHospitalType] =
     useState<IHospitalType[]>();
+
+  const [userLocation, setUserLocation] = useState<{
+    longitudeStr: string; //경도 x
+    latitudeStr: string; //위도 y
+  }>({ longitudeStr: '', latitudeStr: '' }); //위치정보
 
   // Hooks
   const navigate = useNavigate();
@@ -31,6 +37,7 @@ function MainView() {
   const getHospitalTypesQuery = useQuery({
     queryKey: ['getHospitalTypesQuery'],
     queryFn: HospitalAPI.getHospitalTypes,
+    refetchOnWindowFocus: false,
   });
   /* 추후 삭제: 쿼리키 => 리액트쿼리에서 캐싱을 하는데 쿼리키로 변동된 데이터가 없을 경우 api호출을 하지 않음으로 불필요한 api호출 및 리랜더를 방지할 수 있다 */
 
@@ -42,8 +49,39 @@ function MainView() {
     setFilterHospitalType(hospitalType);
   };
 
-  const goToListPage = (id: string) => {
-    navigate(`/hospitals?hospitalType=${id}`);
+  const goToListPage = (
+    lng: string,
+    lat: string,
+    id: string,
+    page: number,
+    pageSize: number
+  ) => {
+    navigate(
+      `hospitals?longitude=${lng}&latitude=${lat}&hospitalType=${id}&pageNo=${page}&numOfRows=${pageSize}`
+    );
+  };
+
+  //유저 위치 가져오기
+  const getUserLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        //success
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          const latitudeStr = latitude.toString();
+          const longitudeStr = longitude.toString();
+          setUserLocation({ longitudeStr, latitudeStr });
+          console.log(longitude, latitude);
+        },
+        //error
+        (error) => {
+          console.log('Error get user Location:', error);
+        }
+      );
+    } else {
+      //브라우저 지원 하지 않음
+      console.log('Geolocation is not supported by this browser');
+    }
   };
 
   // Effect
@@ -57,6 +95,10 @@ function MainView() {
   useEffect(() => {
     hospitalTypeSearch();
   }, [hospitalTypes, searchValue]);
+
+  useEffect(() => {
+    getUserLocation();
+  }, []);
   return (
     <Styles.Container>
       <Styles.MainDescription>
@@ -78,7 +120,15 @@ function MainView() {
                   type={type.name}
                   id={type.id}
                   key={type.id}
-                  onClick={() => goToListPage(type.id)}
+                  onClick={() => {
+                    goToListPage(
+                      userLocation.longitudeStr,
+                      userLocation.latitudeStr,
+                      type.id,
+                      1,
+                      20
+                    );
+                  }}
                 />
               ))}
           </Styles.BadgeButtonInner>

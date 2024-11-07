@@ -1,4 +1,4 @@
-import MainRoute from '../../pages/routes';
+import MainRoute from '@pages/routes';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
 import * as Styles from './Layout.styles';

@@ -1,6 +1,6 @@
+import { PropsWithChildren } from 'react';
 import * as Styles from './BasicButton.styles';
-interface Props {
-  children: string;
+interface Props extends PropsWithChildren {
   onClick: () => void;
 }
 

@@ -5,10 +5,23 @@ import * as Styles from './AdditionalInfo.styles';
 
 interface Props {
   tel: string;
+  endTime: string;
   dutyDates: IDutyDate[];
 }
 
-function AdditionalInfo({ tel, dutyDates }: Props) {
+function AdditionalInfo({ tel, endTime, dutyDates }: Props) {
+  const convertTimeStr = (dutyDate: string | '') => {
+    if (dutyDate !== null) {
+      const startTime = dutyDate.slice(0, 4).replace(/(.{2})/, '$1:');
+      const endTime = dutyDate
+        .slice(5, dutyDate.length)
+        .replace(/(.{2})/, '$1:');
+
+      const time = `${startTime}\r${'-'}\r${endTime}`;
+      return time;
+    }
+  };
+
   return (
     <Styles.Container>
       <Styles.Content>
@@ -28,7 +41,10 @@ function AdditionalInfo({ tel, dutyDates }: Props) {
           </Typography>
         </Styles.ContentItem>
         <Styles.ContentItem>
-          <Typography variant="body-s" children={'18:00에 진료종료'} />
+          <Typography variant="body-s">
+            {endTime.replace(/(.{2})/, '$1:')}
+            {'에 진료종료'}
+          </Typography>
         </Styles.ContentItem>
       </Styles.Content>
 
@@ -48,7 +64,9 @@ function AdditionalInfo({ tel, dutyDates }: Props) {
           {dutyDates.map((date) => {
             return (
               <Styles.DutyDateItem key={date.day}>
-                <Typography variant="body-s">{date.time || '-'}</Typography>
+                <Typography variant="body-s">
+                  {convertTimeStr(date.time) || '-'}
+                </Typography>
               </Styles.DutyDateItem>
             );
           })}

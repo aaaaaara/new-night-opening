@@ -1,8 +1,8 @@
+import { PropsWithChildren } from 'react';
 import * as Styles from './Typography.styles';
 
 //child 변경
-interface Props {
-  children: string;
+interface Props extends PropsWithChildren {
   variant?: string;
   color?: string;
 }

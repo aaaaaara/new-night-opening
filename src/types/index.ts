@@ -1,7 +1,3 @@
-/**
- * TODO 타입정리
- */
-
 import { IDutyDateType } from '../const';
 
 //type
@@ -17,16 +13,20 @@ export interface IDutyDate {
 
 export interface IHospitals {
   id: string;
-  type: {
-    id: string;
-    name: string;
-  };
+  types: [
+    {
+      id: string;
+      name: string;
+    }
+  ];
   name: string;
   x: number;
   y: number;
-  isDuty: boolean;
-  dutyDate: [{ day: IDutyDateType; time: string | null }];
-  state?: string;
   address: string;
+  isDuty: boolean;
+  state: string;
   tel: string;
+  startTime: string;
+  endTime: string;
+  dutyDate: [{ day: IDutyDateType; time: string | null }];
 }

@@ -1,5 +1,5 @@
-import Typography from '../../components/Typography/Typography';
-import Theme from '../../styles/Theme';
+import Typography from '@components/Typography/Typography';
+import Theme from '@styles/Theme';
 import * as Styles from './index.styles';
 
 const ERROR_MESSAGE = {
@@ -38,11 +38,9 @@ function ErrorView() {
             </defs>
           </svg>
         </p>
-        <Typography
-          variant="heading3"
-          color={Theme.primary}
-          children={ERROR_MESSAGE.NOT_FOUND}
-        />
+        <Typography variant="heading3" color={Theme.primary}>
+          {ERROR_MESSAGE.NOT_FOUND}
+        </Typography>
       </Styles.Content>
     </Styles.Container>
   );

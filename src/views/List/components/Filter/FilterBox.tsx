@@ -1,35 +1,47 @@
+import Label from '@components/Label/Label';
 import {
   faArrowDownWideShort,
   faMagnifyingGlass,
   faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
-import Label from '../../../../components/Label/Label';
-import * as Styles from './Filter.styles';
+import React, { PropsWithChildren, useState } from 'react';
+import * as Styles from './FilterBox.styles';
 
-interface Props {
-  onClick: () => void;
+const labelData = ['진료중', '곧마감', '진료마감'];
+
+interface Props extends PropsWithChildren {
+  onClickSearch: () => void;
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
+  onClickLabel: () => void;
+  setLabel: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Filter({ onClick, value, setValue }: Props) {
-  const [isActive, setIsActive] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isSortOpen, setIsSortOpen] = useState(false);
+function FilterBox({
+  onClickSearch,
+  value,
+  setValue,
+  onClickLabel,
+  setLabel,
+}: Props) {
+  const [isActive, setIsActive] = useState<boolean>(false); //container를 활성/비활성화 하는 style에 대한 state
+  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false); //검색 노출여부 state
+  const [isSortOpen, setIsSortOpen] = useState<boolean>(false); //sorting 노출여부 state
+  const [seletedLabel, setSeletedLabel] = useState<number>(); //선택한 라벨 state
 
   /*
     1. 버튼을 클릭하면 검색창영역이 활성화
     2. 검색 or 정렬버튼 클릭시 이전 (검색 or 정렬)값 초기화
   */
+
+  // UI에 관한 함수
   const onClickSearchButton = () => {
     setIsActive(true);
     setIsSearchOpen(true);
     setIsSortOpen(false);
   };
 
-  //정렬
   const onClickSortButton = () => {
     setIsActive(true);
     setIsSortOpen(true);
@@ -40,6 +52,22 @@ function Filter({ onClick, value, setValue }: Props) {
     setIsActive(false);
     setIsSortOpen(false);
     setIsSearchOpen(false);
+    setValue('');
+  };
+
+  //검색
+  const goSearch = (e: any) => {
+    if (e.key === 'Enter') {
+      onClickSearch();
+      onCloseFilter();
+    }
+  };
+
+  //상태 라벨 버튼
+  const SelectedFilter = (idx: number, label: string) => {
+    setLabel(label); //상태 선택 state
+    onClickLabel(); //데이터 필터링 로직 함수
+    setSeletedLabel(idx); //UI 변경 state
   };
 
   return (
@@ -63,18 +91,22 @@ function Filter({ onClick, value, setValue }: Props) {
                   placeholder="무엇을 찾고 싶으세요?"
                   value={value}
                   onChange={(e) => setValue(e.target.value)}
-                  onKeyDown={onClick}
+                  onKeyDown={(e) => goSearch(e)}
                 />
               </Styles.SearchBox>
             )}
 
             {isSortOpen && (
               <Styles.SortBox>
-                <Label children="진료중" variant="active" />
-
-                <Label children="곧마감" variant="disabled" />
-
-                <Label children="마감" variant="disabled" />
+                {labelData.map((label, idx) => (
+                  <Label
+                    key={idx}
+                    onClick={() => SelectedFilter(idx, label)}
+                    variant={seletedLabel === idx ? 'active' : 'disabled'}
+                  >
+                    {label}
+                  </Label>
+                ))}
               </Styles.SortBox>
             )}
           </Styles.FilterTop>
@@ -94,4 +126,4 @@ function Filter({ onClick, value, setValue }: Props) {
   );
 }
 
-export default Filter;
+export default FilterBox;

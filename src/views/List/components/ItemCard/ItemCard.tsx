@@ -1,8 +1,6 @@
-import { IDutyDate } from '@/src/types';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Label from '../../../../components/Label/Label';
 import * as Styles from './ItemCard.styles';
@@ -13,45 +11,24 @@ interface Props {
   state?: string;
   type: string;
   name: string;
-  dutyDates: IDutyDate[];
+  endTime: string;
 }
 
 const END_TEXT = `에 진료종료`;
-function ItemCard({ state, type, name, dutyDates, id }: Props) {
-  const today = dayjs().day();
+function ItemCard({ state, type, name, id, endTime }: Props) {
   //State
-  const [todayDutyTime, setTodayDutyTime] = useState({
-    day: '',
-    time: '',
-  });
 
   //Hooks
   const navigate = useNavigate();
 
   //Logic
-  const getTodayDutyTime = () => {
-    dutyDates.forEach((element, i) => {
-      if (i === today && element.time !== null) {
-        setTodayDutyTime({ day: element.day, time: element.time });
-        isDutyCheck(element.time);
-      }
-    });
-  };
-
-  const isDutyCheck = (time: string) => {
-    let endTime = time.slice(5);
-
-    console.log(endTime, 'end');
-  };
 
   const goDetailPage = () => {
     navigate(`/hospital/${id}`);
   };
 
   //Effect
-  useEffect(() => {
-    getTodayDutyTime();
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <Styles.Container onClick={goDetailPage}>
@@ -66,7 +43,7 @@ function ItemCard({ state, type, name, dutyDates, id }: Props) {
           </Styles.Item>
           <Styles.Item>
             <Styles.TypoBodyS>
-              {todayDutyTime.time.slice(5)}
+              {endTime.replace(/(.{2})/, '$1:')}
               {END_TEXT}
             </Styles.TypoBodyS>
           </Styles.Item>
