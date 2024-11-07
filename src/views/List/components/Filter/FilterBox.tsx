@@ -25,10 +25,10 @@ function FilterBox({
   onClickLabel,
   setLabel,
 }: Props) {
-  const [isActive, setIsActive] = useState(false); //container를 활성/비활성화 하는 style에 대한 state
-  const [isSearchOpen, setIsSearchOpen] = useState(false); //검색 노출여부 state
-  const [isSortOpen, setIsSortOpen] = useState(false); //sorting 노출여부 state
-  const [seletedLabel, setSeletedLabel] = useState(0); //선택한 라벨 state
+  const [isActive, setIsActive] = useState<boolean>(false); //container를 활성/비활성화 하는 style에 대한 state
+  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false); //검색 노출여부 state
+  const [isSortOpen, setIsSortOpen] = useState<boolean>(false); //sorting 노출여부 state
+  const [seletedLabel, setSeletedLabel] = useState<number>(); //선택한 라벨 state
 
   /*
     1. 버튼을 클릭하면 검색창영역이 활성화

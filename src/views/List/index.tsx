@@ -3,7 +3,6 @@ import HospitalAPI from '@apis/hospitals';
 import ScrollTopButton from '@components/button/ScrollTopButton/ScrollTopButton';
 import Loading from '@components/Loading/Loading';
 import { useHeaderTitleStore } from '@stores/headerTitle';
-import { useHospitalTypeStore } from '@stores/hospitalType';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -18,7 +17,7 @@ import * as Styles from './index.styles';
 
 function ListView() {
   //state
-  const { hospitalTypeName } = useHospitalTypeStore();
+
   const { setTitle } = useHeaderTitleStore();
   const [searchParams] = useSearchParams();
   const hospitalType = searchParams.get('hospitalType');
@@ -48,7 +47,7 @@ function ListView() {
 
   //Logic
 
-  //검색
+  //병원 검색(병원명)
   const searchHospital = () => {
     const hospitalData =
       getHospitalsQuery.data &&
@@ -56,9 +55,8 @@ function ListView() {
     setHospitals(hospitalData);
   };
 
-  // 필터 로직 테스트 필요 !!
-  const seletedState = () => {
-    console.log(hospitalStatus, 'test');
+  // 병원 진료 상태에 따른 필터링 (진료중, 곧마감, 진료마감)
+  const filterHospitalsByOperatingStatus = () => {
     const hospitalData =
       getHospitalsQuery.data &&
       getHospitalsQuery.data.filter((data) => data.state === hospitalStatus);
@@ -83,11 +81,11 @@ function ListView() {
   //Effect
   useEffect(() => {
     searchHospital();
-    setTitle(hospitalTypeName);
-  }, [hospitalType, searchValue, getHospitalsQuery.data, hospitalTypeName]);
+    setTitle('-');
+  }, [hospitalType, searchValue, getHospitalsQuery.data]);
 
   useEffect(() => {
-    seletedState();
+    filterHospitalsByOperatingStatus();
   }, [hospitalStatus]);
 
   return (
@@ -97,18 +95,14 @@ function ListView() {
           setValue={setSearchValue}
           onClickSearch={searchHospital}
           value={searchValue}
-          onClickLabel={() => seletedState()}
+          onClickLabel={() => filterHospitalsByOperatingStatus()}
           setLabel={setHospitalStatus}
         />
         {getHospitalsQuery.isFetching ? (
           <Loading />
         ) : (
           hospitals && (
-            <ItemList
-              data={hospitals}
-              type={hospitalTypeName}
-              targetRef={targetEl}
-            />
+            <ItemList data={hospitals} type={'타입'} targetRef={targetEl} />
           )
         )}
       </Styles.Content>

@@ -43,7 +43,7 @@ function ItemCard({ state, type, name, id, endTime }: Props) {
           </Styles.Item>
           <Styles.Item>
             <Styles.TypoBodyS>
-              {endTime}
+              {endTime.replace(/(.{2})/, '$1:')}
               {END_TEXT}
             </Styles.TypoBodyS>
           </Styles.Item>

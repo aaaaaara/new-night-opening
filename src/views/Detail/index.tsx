@@ -48,7 +48,7 @@ function DetailView() {
           {hospitalDetail && (
             <BasicInfo
               key={hospitalDetail.id}
-              type={hospitalTypeName}
+              types={hospitalDetail.types}
               name={hospitalDetail.name}
               address={hospitalDetail.address}
             />

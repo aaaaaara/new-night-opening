@@ -1,7 +1,6 @@
 import HospitalAPI from '@apis/hospitals';
 import BadgeButton from '@components/button/BadgeButton/BadgeButton';
 import SearchInput from '@components/SearchInput/SearchInput';
-import { useHospitalTypeStore } from '@stores/hospitalType';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -20,16 +19,16 @@ const MAIN_DESCRIPTION = `퇴근 후에 급히 병원을 가야 할 때, \n 지�
 
 function MainView() {
   // State
-  const { setType } = useHospitalTypeStore();
+
   const [searchValue, setSearchValue] = useState<string>(''); //input value 저장 state
   const [hospitalTypes, setHospitalTypes] = useState<IHospitalType[]>([]);
   const [filterHospitalType, setFilterHospitalType] =
     useState<IHospitalType[]>();
 
   const [userLocation, setUserLocation] = useState<{
-    latitudeStr: string; //위도 y
     longitudeStr: string; //경도 x
-  }>({ latitudeStr: '', longitudeStr: '' }); //위치정보
+    latitudeStr: string; //위도 y
+  }>({ longitudeStr: '', latitudeStr: '' }); //위치정보
 
   // Hooks
   const navigate = useNavigate();
@@ -48,15 +47,6 @@ function MainView() {
       type.name.includes(searchValue)
     );
     setFilterHospitalType(hospitalType);
-  };
-
-  /**
-   * 1. 타입 버튼 클릭
-   * 2. 타입과 일치하는 값을 state에 저장
-   * 3. 타입과 일치하는 값을 params로 넘기기
-   */
-  const onClickTypeButton = (type: IHospitalType) => {
-    setType(type.name);
   };
 
   const goToListPage = (
@@ -80,7 +70,8 @@ function MainView() {
           const { latitude, longitude } = position.coords;
           const latitudeStr = latitude.toString();
           const longitudeStr = longitude.toString();
-          setUserLocation({ latitudeStr, longitudeStr });
+          setUserLocation({ longitudeStr, latitudeStr });
+          console.log(longitude, latitude);
         },
         //error
         (error) => {
@@ -91,7 +82,6 @@ function MainView() {
       //브라우저 지원 하지 않음
       console.log('Geolocation is not supported by this browser');
     }
-    console.log(navigator.geolocation);
   };
 
   // Effect
@@ -131,14 +121,13 @@ function MainView() {
                   id={type.id}
                   key={type.id}
                   onClick={() => {
-                    onClickTypeButton(type),
-                      goToListPage(
-                        userLocation.latitudeStr,
-                        userLocation.longitudeStr,
-                        type.id,
-                        1,
-                        20
-                      );
+                    goToListPage(
+                      userLocation.longitudeStr,
+                      userLocation.latitudeStr,
+                      type.id,
+                      1,
+                      20
+                    );
                   }}
                 />
               ))}

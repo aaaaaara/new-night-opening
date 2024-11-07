@@ -10,6 +10,10 @@ export const Content = styled.ul`
 
 export const ContentItem = styled.li`
   &:nth-child(1) {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
     margin-bottom: 9px;
   }
 

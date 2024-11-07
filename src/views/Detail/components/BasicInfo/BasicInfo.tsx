@@ -1,19 +1,24 @@
+import { IHospitalType } from '@/src/types';
 import Label from '../../../../components/Label/Label';
 import Typography from '../../../../components/Typography/Typography';
 import * as Styles from './BasicInfo.styles';
 
 interface Props {
-  type: string;
+  types: IHospitalType[];
   name: string;
   address: string;
 }
 
-function BasicInfo({ type, name, address }: Props) {
+function BasicInfo({ types, name, address }: Props) {
   return (
     <Styles.Container>
       <Styles.Content>
         <Styles.ContentItem>
-          <Label children={type} variant="urgent" />
+          {types.map((type) => (
+            <Label key={type.id} variant="urgent">
+              {type.name}
+            </Label>
+          ))}
         </Styles.ContentItem>
         <Styles.ContentItem>
           <Typography variant="heading2">{name}</Typography>

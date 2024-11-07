@@ -13,10 +13,12 @@ export interface IDutyDate {
 
 export interface IHospitals {
   id: string;
-  type: {
-    id: string;
-    name: string;
-  };
+  types: [
+    {
+      id: string;
+      name: string;
+    }
+  ];
   name: string;
   x: number;
   y: number;
